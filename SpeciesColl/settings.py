@@ -127,4 +127,6 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 GDAL_LIBRARY_PATH = r'C:\OSGeo4W\bin\gdal202.dll'
-GEOS_LIBRARY_PATH = r'C:\Program Files\PostgreSQL\10\bin\libgeos.dll'
+GDAL_DATA_PATH = r'C:\OSGeo4W\share\gdal\gcs.csv'
+#GDAL_DRIVER_PATH = r'C:\OSGeo4W\bin\gdalplugins'
+#GEOS_LIBRARY_PATH = r'C:\Program Files\PostgreSQL\10\bin\libgeos.dll'

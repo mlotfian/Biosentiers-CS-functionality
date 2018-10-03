@@ -26,7 +26,7 @@ class Observation(models.Model):
     species = models.ForeignKey(Species, on_delete=models.CASCADE, verbose_name="Species",)
     
     #date = models.DateField(verbose_name="Date")
-    #geometry = models.PointField(srid=4326,default='location',)
+    geometry = models.PointField(srid=4326)
     def __str__(self):
         return self.obs_type
     
