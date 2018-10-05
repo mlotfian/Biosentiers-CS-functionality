@@ -3,6 +3,7 @@ from django.contrib.gis.db import models
 
 from django.forms import ModelForm
 from django.contrib.admin import widgets  
+from geoposition.fields import GeopositionField
 
 species_choices = [
     ('tree', 'Tree'),
@@ -27,10 +28,10 @@ class Observation(models.Model):
     
     #date = models.DateField(verbose_name="Date")
     geometry = models.PointField(srid=4326)
-    def __str__(self):
-        return self.obs_type
     
+class POI(models.Model):
 
+    position = GeopositionField()
         
 
 

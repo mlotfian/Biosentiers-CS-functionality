@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'geoposition',
     'polls.apps.PollsConfig',
     'leaflet',
     'django.contrib.gis',
@@ -123,6 +124,12 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
+
+GEOPOSITION_MAP_WIDGET_HEIGHT = 500
+
+GEOPOSITION_GOOGLE_MAPS_API_KEY = 'AIzaSyBSrEHDXdCFzsclAkHUmlb2wexHMZeJJOU'
+
+
 
 STATIC_URL = '/static/'
 
