@@ -31,6 +31,9 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'dal',
+    'dal_select2',
+    'dal_queryset_sequence',
     'geoposition',
     'polls.apps.PollsConfig',
     'leaflet',
@@ -80,7 +83,7 @@ WSGI_APPLICATION = 'SpeciesColl.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.contrib.gis.db.backends.postgis',
-        'NAME': 'BioSenCS',
+        'NAME': 'Bio_django',
         'USER': 'postgres',
         'PASSWORD': 'mary3000',
         'HOST': 'localhost',

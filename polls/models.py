@@ -20,6 +20,7 @@ class Species(models.Model):
     obs_type = models.CharField(max_length=255, choices = species_choices,default='none' )
     date = models.DateField(verbose_name="Date")
     photo = models.ImageField(upload_to='media', default='no image')
+    geometry = models.PointField(srid=4326)
     def __str__(self):
         return self.name
     
@@ -27,7 +28,7 @@ class Observation(models.Model):
     species = models.ForeignKey(Species, on_delete=models.CASCADE, verbose_name="Species",)
     
     #date = models.DateField(verbose_name="Date")
-    geometry = models.PointField(srid=4326)
+    
     
 class POI(models.Model):
 
