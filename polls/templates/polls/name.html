@@ -8,8 +8,30 @@
 <script src="//cdn.bootcss.com/moment.js/2.17.1/moment.min.js"></script>
 <script src="//cdn.bootcss.com/bootstrap-datetimepicker/4.17.44/js/bootstrap-datetimepicker.min.js"></script>
     
-    {{ form.media }}
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $(function() {
+                $( "#invalidPhoto" ).dialog({
+                    modal: true,
+                    closeOnEscape: false,
+                    dialogClass: "no-close",
+                    resizable: false,
+                    draggable: false,
+                    width: 600,
+                    buttons: [
+                        {
+                            text: "OK",
+                            click: function() {
+                            $( this ).dialog( "close" );
+                            }
+                        }
+                    ]
+                });
+            });
+        });
+    </script>
     
+    {{ form.media }}
 </head>
 <body>
 
@@ -20,7 +42,8 @@
     {{ form.as_p }}
     <input type="submit" value="Submit">
     
-</form> 
+</form>
+ 
 </div>
 <script>
     $(function () {
@@ -29,6 +52,12 @@
         });
     });
 </script>
+
+{% if invalidPhoto %}
+    <div id="invalidPhoto" title="Invalid Photo">
+        <p>Please make sure you have selected the right species type</p>
+    </div>
+{% endif %}
 
 </body>
 

@@ -11,6 +11,9 @@ from .models import Species, Observation
 
 from .forms import SpeciesForm
 
+from clarifai.rest import ClarifaiApp
+from clarifai.rest import Image as ClImage
+
 def index(request):
     template = loader.get_template('polls/index.html')
     return render(request,'polls/index.html')
@@ -24,12 +27,47 @@ def detail(request):
 
 def observe(request):
     if request.method == 'POST':
+        obs_type = request.POST['obs_type']
+        photo = request.FILES['photo']
+        
         form = SpeciesForm(request.POST, request.FILES)
         if form.is_valid():
-            form.save()
-            return HttpResponseRedirect(reverse('polls:index'))
+            if identifyPhoto(photo, obs_type):
+                form.save()
+                return HttpResponseRedirect(reverse('polls:index'))
+            else:
+                form = SpeciesForm()
+                return render(request, 'polls/name.html', {'form': form, 'invalidPhoto': True})
     else:
         form = SpeciesForm()
-    return render(request, 'polls/name.html', {'form': form})    
+    return render(request, 'polls/name.html', {'form': form})
+    
+def identifyPhoto(photo, obs_type):
+    app = ClarifaiApp(api_key='366cc97df9c14f50b0ec95e98724b3e8')
+   
+    model = app.models.get('general-v1.3')
+    image = ClImage(file_obj=photo)
+    response_data = model.predict([image])
+
+    tag_urls = []
+    prob = []
+    for concept in response_data['outputs'][0]['data']['concepts']:
+        tag_urls.append(concept['name'])
+        prob.append(concept['value'])
+        
+    predic = dict(zip(tag_urls, prob))   
+    listS=[]
+    for my_key, my_value in predic.items():
+        if predic[my_key]>0.90:
+            listS.append(my_key)
+
+    if obs_type in listS:
+        return True
+        print('Photo is ok')
+    else:
+        print('The photo does not look like a ' + obs_type)
+    
+   
+
 
    
