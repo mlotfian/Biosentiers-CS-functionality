@@ -62,8 +62,8 @@ def identifyPhoto(photo, obs_type):
             listS.append(my_key)
 
     if obs_type in listS:
+        print('The image correspond with the right species type')
         return True
-        print('Photo is ok')
     else:
         print('The photo does not look like a ' + obs_type)
     
