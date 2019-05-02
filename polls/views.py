@@ -9,7 +9,7 @@ from django.shortcuts import get_object_or_404, render
 
 from .models import Species, Observation
 
-from .forms import SpeciesForm
+from .forms import SpeciesForm, ObservationForm, POIForm
 
 from clarifai.rest import ClarifaiApp
 from clarifai.rest import Image as ClImage
@@ -25,22 +25,47 @@ def detail(request):
     return render(request, 'polls/detail.html')
 
 
+
+    
 def observe(request):
+    
+    context = {
+    'observation_form': ObservationForm(),
+    'species_form': SpeciesForm(),
+    'poi_form': POIForm()
+    }
+    
     if request.method == 'POST':
         obs_type = request.POST['obs_type']
+        geometry = request.POST['geometry']
         photo = request.FILES['photo']
         
-        form = SpeciesForm(request.POST, request.FILES)
-        if form.is_valid():
+           
+        species_form = SpeciesForm(request.POST, request.FILES)
+        poi_form = POIForm(request.POST)
+        observation_form = ObservationForm(request.POST, request.FILES)
+        
+        if observation_form.is_valid() and species_form.is_valid() and poi_form.is_valid():
             if identifyPhoto(photo, obs_type):
-                form.save()
+                obs = observation_form.save(commit=False)
+                obs.poi = poi_form.save()
+                obs.species = species_form.save()
+                obs.save()
+                
                 return HttpResponseRedirect(reverse('polls:index'))
             else:
-                form = SpeciesForm()
-                return render(request, 'polls/name.html', {'form': form, 'invalidPhoto': True})
+                observation_form = ObservationForm()
+                species_form = SpeciesForm()
+                poi_form = POIForm()
+                
+                return render(request, 'polls/name.html', {'form': context, 'invalidPhoto': True})
     else:
-        form = SpeciesForm()
-    return render(request, 'polls/name.html', {'form': form})
+        observation_form = ObservationForm()
+        species_form = SpeciesForm()
+        poi_form = POIForm()
+        
+        
+    return render(request, 'polls/name.html', context)
     
 def identifyPhoto(photo, obs_type):
     app = ClarifaiApp(api_key='366cc97df9c14f50b0ec95e98724b3e8')

@@ -31,7 +31,11 @@
         });
     </script>
     
-    {{ form.media }}
+    {{ species_form.media }}
+    {{ observation_form.media }}
+    {{ poi_form.media }}
+    
+    
 </head>
 <body>
 
@@ -39,7 +43,11 @@
 
 <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
-    {{ form.as_p }}
+    {{ species_form.as_p }}
+    {{ observation_form.as_p }}
+    {{ poi_form.as_p }}
+    
+    
     <input type="submit" value="Submit">
     
 </form>

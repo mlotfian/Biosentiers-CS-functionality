@@ -1,17 +1,34 @@
 from django.forms import ModelForm
-from .models import Species, Observation
+from .models import Species, Observation, POI
 from django.contrib.gis.forms import OSMWidget, PointField
 from django import forms
 
 from django.contrib.admin import widgets  
 
+
+
+class ObservationForm(ModelForm):
+     
+    class Meta:
+        model = Observation
+        fields = ['description','date', 'photo']
+        
+        widgets = {'date': forms.DateTimeInput(attrs={'class': 'datetime-input'})}
+    
 class SpeciesForm(ModelForm):
      
     class Meta:
         model = Species
-        fields = ['name', 'description', 'obs_type', 'date', 'photo', 'geometry']
-        widgets = {'date': forms.DateTimeInput(attrs={'class': 'datetime-input'})}
-         
+        fields = ['name','obs_type']
+        
+
+
+class POIForm(ModelForm):
+     
+    class Meta:
+        model = POI
+        fields = ['geometry']      
+    
     geometry = PointField(
         widget=OSMWidget(
             attrs={'map_width': 600,

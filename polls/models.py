@@ -15,24 +15,31 @@ species_choices = [
 
 class Species(models.Model):
     name = models.CharField(max_length=255, verbose_name="Name",)
-    #species_type= models.CharField(max_length=255, verbose_name="Type", default='Unknown',)
-    description = models.CharField(max_length=255, default='SOME STRING',)
     obs_type = models.CharField(max_length=255, choices = species_choices,default='none' )
-    date = models.DateField(verbose_name="Date")
-    photo = models.ImageField(upload_to='media', default='no image')
-    geometry = models.PointField(srid=4326)
     def __str__(self):
         return self.name
-    
+
+class POI(models.Model):
+
+    geometry = models.PointField(srid=4326)
+    def __str__(self):
+        return "Point(%s)"%(self.geometry)
+
+        
 class Observation(models.Model):
     species = models.ForeignKey(Species, on_delete=models.CASCADE, verbose_name="Species",)
+    poi = models.ForeignKey(POI, on_delete=models.CASCADE, verbose_name="POI",)
+    description = models.CharField(max_length=255, default='SOME STRING',)
+    date = models.DateField(verbose_name="Date")
+    photo = models.ImageField(upload_to='media', default='no image')
+    
+    
+    
+    
     
     #date = models.DateField(verbose_name="Date")
     
     
-class POI(models.Model):
-
-    position = GeopositionField()
         
 
 
