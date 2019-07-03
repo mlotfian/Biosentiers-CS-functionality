@@ -19,7 +19,7 @@ class SpeciesForm(ModelForm):
      
     class Meta:
         model = Species
-        fields = ['name','obs_type']
+        fields = ['obs_type','name']
         
 
 
