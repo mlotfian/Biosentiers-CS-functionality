@@ -1,101 +1,100 @@
 <html>
-<head>
-<meta charset="utf-8" />
-<link href="//cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
-<link href="//cdn.bootcss.com/bootstrap-datetimepicker/4.17.44/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
-<script src="//cdn.bootcss.com/jquery/3.0.0/jquery.min.js"></script>
-<script src="//cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<script src="//cdn.bootcss.com/moment.js/2.17.1/moment.min.js"></script>
-<script src="//cdn.bootcss.com/bootstrap-datetimepicker/4.17.44/js/bootstrap-datetimepicker.min.js"></script>
-<link rel="stylesheet" href="https://cdn.rawgit.com/LeaVerou/awesomplete/gh-pages/awesomplete.css" /> 
-    
-    <script type="text/javascript">
-        $(document).ready(function() {
-            $(function() {
-                $( "#invalidPhoto" ).dialog({
-                    modal: true,
-                    closeOnEscape: false,
-                    dialogClass: "no-close",
-                    resizable: false,
-                    draggable: false,
-                    width: 600,
-                    buttons: [
-                        {
-                            text: "OK",
-                            click: function() {
-                            $( this ).dialog( "close" );
-                            }
-                        }
-                    ]
-                });
-            });
+  <head>
+  <meta charset="utf-8" />
+  <link href="//cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+  <link href="//cdn.bootcss.com/bootstrap-datetimepicker/4.17.44/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+  <script src="//cdn.bootcss.com/jquery/3.0.0/jquery.min.js"></script>
+  <script src="//cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="//cdn.bootcss.com/moment.js/2.17.1/moment.min.js"></script>
+  <script src="//cdn.bootcss.com/bootstrap-datetimepicker/4.17.44/js/bootstrap-datetimepicker.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.rawgit.com/LeaVerou/awesomplete/gh-pages/awesomplete.css" /> 
+  <script type="text/javascript">
+    $(document).ready(function() {
+      $(function() {
+        $( "#invalidPhoto" ).dialog({
+          modal: true,
+          closeOnEscape: false,
+          dialogClass: "no-close",
+          resizable: false,
+          draggable: false,
+          width: 600,
+          buttons: [
+            {
+              text: "OK",
+              click: function() {
+                $( this ).dialog( "close" );
+              }
+            }
+          ]
         });
-    </script>
-    <script src="https://cdn.rawgit.com/LeaVerou/awesomplete/gh-pages/awesomplete.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+      });
+    }
+  );
+  </script>
+  <script src="https://cdn.rawgit.com/LeaVerou/awesomplete/gh-pages/awesomplete.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     
-    {{ species_form.media }}
-    {{ observation_form.media }}
-    {{ poi_form.media }}
+  {{ species_form.media }}
+  {{ observation_form.media }}
+  {{ poi_form.media }}
+      
+  </head>
+  <body>
+  <div id="map">
+    <form method="post" enctype="multipart/form-data">
+      {% csrf_token %}
     
-    
-</head>
-<body>
+      <div id="observation_type" style="padding: 10px;">
+        <!--
+        <select name="obs_type" id="observation_type">
+            <option value="" selected disabled hidden>Select species type</option>
+            {% for obs in species_form.obs_type %}
+            <option value="{{obs}}">{{ obs.value }}</option>
+            {% endfor %}
+        </select>-->
 
-<div id="map">
+    {{ species_form.obs_type }}
+      </div>
+      <div style="padding: 10px;"><input id="species" class="species_form" name="name" placeholder="Enter species name"></div>
+      <div style="padding: 10px;"><input class="observation_form" name="description" placeholder="Enter your description"></div>
+      <div style="padding: 10px;"><p>Select Date:</p>{{ observation_form.date }}</div>
+      <div style="padding: 10px;"><p>Select Photo:</p>{{ observation_form.photo }}</div>
+      <div style="padding: 10px;">{{ poi_form.geometry }}</div>
+      <div><input type="submit" value="Submit"></div>
+    </form>
+ </div>
+  <script>
 
-<form method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    <input id="species" placeholder="Enter species name"/>
-    {{ species_form.as_p}}
-    
-    {{ observation_form.as_p }}
-    {{ poi_form.as_p }}
-    
-    
-    <input type="submit" value="Submit">
-    
-</form>
- 
-</div>
-<script>
-    $(function () {
-        $('.datetime-input').datetimepicker({
-            format:'YYYY-MM-DD'
-        });
-    });
-    
-    
-<!-- autocomplete--> 
-var input = document.getElementById("species");
-var awesomplete = new Awesomplete(input, {
-  minChars: 1,
-  autoFirst: true
-});
-var stype = 'flower';
-$("input").on("keyup", function(){
-  $.ajax({
-    url: 'https://biosentiers.heig-vd.ch/api/species?theme=flower&only' + this.value,
-    type: 'GET',
-    dataType: 'json'
-  })
-  .success(function(data) {
-    var list = [];
-    $.each(data, function(key, value) {
-      list.push(value.commonName.fr);
-    });
-    awesomplete.list = list;
+  var speciesNameInput = document.getElementById("species");
+
+  var awesomplete = new Awesomplete(speciesNameInput, {
+    minChars: 1,
+    autoFirst: true
   });
-});
-</script>
 
-{% if invalidPhoto %}
+
+  $("#observation_type").on("change", function() {
+    var selectedObsType = $("#observation_type :selected").text().toLowerCase();
+    $.ajax({
+      url: 'https://biosentiers.heig-vd.ch/api/species?only=commonName.fr&theme=' + selectedObsType,
+      type: 'GET',
+      dataType: 'json'
+    })
+    .success(function(data) {
+      var list = [];
+      $.each(data, function(key, value) {
+        list.push(value.commonName.fr);
+      });
+      awesomplete.list = list;
+    });
+  });
+
+  {% if invalidPhoto %}
     <div id="invalidPhoto" title="Invalid Photo">
-        <p>Please make sure you have selected the right species type</p>
+      <p>Please make sure you have selected the right species type</p>
     </div>
-{% endif %}
+  {% endif %}
 
-</body>
-
-</body>
+  </script>
+  </body>
 </html>

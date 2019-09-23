@@ -28,7 +28,6 @@ def detail(request):
 
     
 def observe(request):
-    
     context = {
     'observation_form': ObservationForm(),
     'species_form': SpeciesForm(),
@@ -39,11 +38,12 @@ def observe(request):
         obs_type = request.POST['obs_type']
         geometry = request.POST['geometry']
         photo = request.FILES['photo']
-        
            
         species_form = SpeciesForm(request.POST, request.FILES)
         poi_form = POIForm(request.POST)
         observation_form = ObservationForm(request.POST, request.FILES)
+
+        
         
         if observation_form.is_valid() and species_form.is_valid() and poi_form.is_valid():
             if identifyPhoto(photo, obs_type):

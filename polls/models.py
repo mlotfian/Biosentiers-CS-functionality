@@ -5,15 +5,16 @@ from django.forms import ModelForm
 from django.contrib.admin import widgets  
 from geoposition.fields import GeopositionField
 
-species_choices = [
+
+
+class Species(models.Model):
+    species_choices = [
     ('tree', 'Tree'),
     ('bird', 'Bird'),
     ('flower','Flower'),
     ('buterfly','Butterfly'),
 ]
 
-
-class Species(models.Model):
     name = models.CharField(max_length=255, verbose_name="Name",)
     obs_type = models.CharField(max_length=255, choices = species_choices,default='none' )
     def __str__(self):

@@ -12,7 +12,7 @@ class ObservationForm(ModelForm):
     class Meta:
         model = Observation
         fields = ['description','date', 'photo']
-        
+       
         widgets = {'date': forms.DateTimeInput(attrs={'class': 'datetime-input'})}
     
 class SpeciesForm(ModelForm):
@@ -20,6 +20,7 @@ class SpeciesForm(ModelForm):
     class Meta:
         model = Species
         fields = ['obs_type','name']
+        #obs_type = forms.ChoiceField(choices=Species.species_choices)
         
 
 
