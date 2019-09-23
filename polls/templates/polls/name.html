@@ -45,15 +45,21 @@
       {% csrf_token %}
     
       <div id="observation_type" style="padding: 10px;">
-        <!--
-        <select name="obs_type" id="observation_type">
+        
+        <select class="species_form" name="obs_type">
             <option value="" selected disabled hidden>Select species type</option>
-            {% for obs in species_form.obs_type %}
-            <option value="{{obs}}">{{ obs.value }}</option>
-            {% endfor %}
-        </select>-->
+            <!--{% for obs in species_form.obs_type %}
+            <option value="{{obs.value}}">{{ obs.value }}</option>
 
-    {{ species_form.obs_type }}
+            {% endfor %}-->
+            <option value="tree">Tree</option>
+            <option value="bird">Bird</option>
+            <option value="butterfly">Butterfly</option>
+            <option value="flower">Flower</option>
+           
+        </select>
+
+    
       </div>
       <div style="padding: 10px;"><input id="species" class="species_form" name="name" placeholder="Enter species name"></div>
       <div style="padding: 10px;"><input class="observation_form" name="description" placeholder="Enter your description"></div>
