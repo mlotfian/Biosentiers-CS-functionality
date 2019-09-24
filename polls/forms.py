@@ -5,7 +5,8 @@ from django import forms
 
 from django.contrib.admin import widgets  
 
-
+class DateInput(forms.DateInput):
+    input_type = 'date'
 
 class ObservationForm(ModelForm):
      
@@ -13,7 +14,11 @@ class ObservationForm(ModelForm):
         model = Observation
         fields = ['description','date', 'photo']
        
-        widgets = {'date': forms.DateTimeInput(attrs={'class': 'datetime-input'})}
+       # widgets = {'date': forms.DateTimeInput(attrs={'class': 'datetime-input'})}
+
+        widgets = {
+            'date': DateInput(),
+        }
     
 class SpeciesForm(ModelForm):
      
@@ -21,21 +26,20 @@ class SpeciesForm(ModelForm):
         model = Species
         fields = ['obs_type','name']
         #obs_type = forms.ChoiceField(choices=Species.species_choices)
-        
+     
 
 
 class POIForm(ModelForm):
      
     class Meta:
         model = POI
-        fields = ['geometry']      
+        fields = ['geometry']    
+
     
     geometry = PointField(
         widget=OSMWidget(
-            attrs={'map_width': 600,
-                   'map_height': 400,
+            attrs={'map_width': 800,
+                   'map_height': 600,
                    'template_name': 'name.html',
-                   'default_lat': 57,
-                   'default_lon': 12}))
-
-         
+                   'default_lat': 46.7833,
+                   'default_lon': 6.65}))
