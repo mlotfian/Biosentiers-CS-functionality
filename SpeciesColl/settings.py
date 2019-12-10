@@ -136,6 +136,10 @@ GEOPOSITION_GOOGLE_MAPS_API_KEY = 'AIzaSyBSrEHDXdCFzsclAkHUmlb2wexHMZeJJOU'
 
 STATIC_URL = '/static/'
 
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),
+]
+
 GDAL_LIBRARY_PATH = r'C:\OSGeo4W\bin\gdal202.dll'
 GDAL_DATA_PATH = r'C:\OSGeo4W\share\gdal\gcs.csv'
 #GDAL_DRIVER_PATH = r'C:\OSGeo4W\bin\gdalplugins'

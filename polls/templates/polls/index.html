@@ -1,73 +1,50 @@
-{% load leaflet_tags %}
-
 <html>
 <head>
+    {% load leaflet_tags %}
     {% leaflet_js %}
     {% leaflet_css %}
-    
-    <meta charset="utf-8" />
-    <link 
-        rel="stylesheet" 
-        href="http://cdn.leafletjs.com/leaflet-0.7/leaflet.css"
-    />
-    <style>
-        body {
-            padding: 0;
-            margin: 0;
-        }
-        html, body, #map {
-            height: 100%;
-            width: 100%;
-        }
-    </style>
-</head>
-<body>
-    <h1>Biosentiers Species Collector</h1>
-    
-    
-    
-    <!--
-    <ul>
-    
-    {% for i in species_id %}
-        <li><a href="{% url 'polls:detail' i.id %}">{{ species.species_name }}</a></li>
-    {% endfor %}
-    </ul>-->
-    <div>
-      <form action="/polls/observe/">
-    <input type="submit" value="New Observation" />
-</form>
-    </div>
-    
-    <div style="overflow:hidden" id="map">
-      
-    </div>
-    
+    {% load staticfiles %}
+    {% load static %}
 
+    <meta charset="utf-8" />
+
+    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7/leaflet.css" />
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
     <script
         src="http://cdn.leafletjs.com/leaflet-0.7/leaflet.js">
-    </script>
 
-    <script>
-        var map = L.map('map').setView([46.7833, 6.65], 14);
-        var marker = L.marker([46.7833, 6.65]).addTo(map);
-        mapLink = 
+    </script>
+  <!--  <script type="text/javascript" src="/static/js/index.js"></script>-->
+
+</head>
+<body>
+<div id="responsive">
+  <img src="{% static 'images/bioSen.PNG' %}" alt="">
+</div>
+
+<form action="/polls/observe/">
+<input type="submit" value="New Observation" />
+</form>
+
+    <div id="map">
+
+    </div>
+
+<script type="text/javascript">
+
+var map = L.map('map').setView([46.7833, 6.65], 14);
+        //var marker = L.marker([46.7833, 6.65]).addTo(map);
+      mapLink =
             '<a href="http://openstreetmap.org">OpenStreetMap</a>';
         L.tileLayer(
             'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '&copy; ' + mapLink + ' Contributors',
             maxZoom: 18,
             }).addTo(map);
-            
-        newMarkerGroup = new L.LayerGroup();
-        map.on('click', addMarker);  
 
-        function addMarker(e){
-    // Add marker to map at click location; add popup window
-    var newMarker = new L.marker(e.latlng).addTo(map);
-}        
-       
-    </script>
+</script>
+
+
+
 </body>
 </html>
-
