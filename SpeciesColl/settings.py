@@ -57,6 +57,7 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'SpeciesColl.urls'
+AUTH_USER_MODEL = 'polls.CustomUser' # new
 
 TEMPLATES = [
     {
@@ -83,7 +84,7 @@ WSGI_APPLICATION = 'SpeciesColl.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.contrib.gis.db.backends.postgis',
-        'NAME': 'Bio_django',
+        'NAME': 'NewBio',
         'USER': 'postgres',
         'PASSWORD': 'mary3000',
         'HOST': 'localhost',
@@ -144,3 +145,9 @@ GDAL_LIBRARY_PATH = r'C:\OSGeo4W\bin\gdal202.dll'
 GDAL_DATA_PATH = r'C:\OSGeo4W\share\gdal\gcs.csv'
 #GDAL_DRIVER_PATH = r'C:\OSGeo4W\bin\gdalplugins'
 #GEOS_LIBRARY_PATH = r'C:\Program Files\PostgreSQL\10\bin\libgeos.dll'
+
+# redirect after logging to homeage
+LOGIN_REDIRECT_URL = 'index'
+
+# redirect after logging out to homeage
+LOGOUT_REDIRECT_URL = 'index'

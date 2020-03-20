@@ -22,6 +22,17 @@
   <img src="{% static 'images/bioSen.PNG' %}" alt="">
 </div>
 
+{% block content %}
+{% if user.is_authenticated %}
+  Hi {{ user.username }}!
+  <p><a href="{% url 'logout' %}">logout</a></p>
+{% else %}
+  <p>You are not logged in</p>
+  <a href="{% url 'login' %}">login</a> |
+  <a href="{% url 'polls:signup' %}">signup</a>
+{% endif %}
+{% endblock %}
+
 <form action="/polls/observe/">
 <input type="submit" value="New Observation" />
 </form>

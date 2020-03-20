@@ -2,8 +2,11 @@ from django.db import models
 from django.contrib.gis.db import models
 
 from django.forms import ModelForm
-from django.contrib.admin import widgets  
+from django.contrib.admin import widgets
 from geoposition.fields import GeopositionField
+from django.contrib.auth.models import AbstractUser
+from django.contrib.auth import get_user_model
+from django.conf import settings
 
 
 
@@ -26,22 +29,31 @@ class POI(models.Model):
     def __str__(self):
         return "Point(%s)"%(self.geometry)
 
-        
+
 class Observation(models.Model):
     species = models.ForeignKey(Species, on_delete=models.CASCADE, verbose_name="Species",)
     poi = models.ForeignKey(POI, on_delete=models.CASCADE, verbose_name="POI",)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE,)
     description = models.CharField(max_length=255, default='SOME STRING',)
     date = models.DateField(verbose_name="Date")
     photo = models.ImageField(upload_to='media', default='no image')
-    
-    
-    
-    
-    
+
+
+class CustomUser(AbstractUser):
+    pass
+    # add additional fields in here
+
+    def __str__(self):
+        return self.username
+
+
+
+
+
     #date = models.DateField(verbose_name="Date")
-    
-    
-        
+
+
+
 
 
 
