@@ -1,13 +1,69 @@
-<!-- templates/signup.html -->
-{% extends 'base.html' %}
+<!DOCTYPE html>
+<html>
+<head>
+  {% load staticfiles %}
+  {% load static %}
+  {{ form_class.media }}
+  <meta charset="utf-8">
+  <title></title>
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+  integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="{% static 'signup.css' %}">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-{% block title %}Sign Up{% endblock %}
+</head>
+<body class="cover">
 
-{% block content %}
-<h2>Sign up</h2>
-<form method="post">
-  {% csrf_token %}
-  {{ form.as_p }}
-  <button type="submit">Sign up</button>
-</form>
-{% endblock %}
+
+  <main>
+    {% block content %}
+    <div class="signup-form">
+    <form method="post">
+      {% csrf_token %}
+    <h2>Sign Up</h2>
+    <p>Please fill in this form to create an account!</p>
+    <hr>
+        <div class="form-group">
+      <div class="input-group">
+        <span class="input-group-addon"><i class="fa fa-user"></i></span>
+        <input type="text" maxlength="150" autofocus required id="id_username" class="form-control form_class" name="username" placeholder="Username" required="required">
+      </div>
+
+        </div>
+        <div class="form-group">
+      <div class="input-group">
+        <span class="input-group-addon"><i class="fa fa-paper-plane"></i></span>
+        <input type="email" id="id_email" class="form-control form_class" name="email" placeholder="Email Address" required="required">
+      </div>
+        </div>
+    <div class="form-group">
+      <div class="input-group">
+        <span class="input-group-addon"><i class="fa fa-lock"></i></span>
+        <input type="password" id="id_password1" class="form-control form_class" name="password1" placeholder="Password" required="required">
+      </div>
+
+        </div>
+    <div class="form-group">
+         <div class="input-group">
+        <span class="input-group-addon">
+          <i class="fa fa-lock"></i>
+          <i class="fa fa-check"></i>
+        </span>
+        <input type="password" id="id_password2" class="form-control form_class" name="password2" placeholder="Confirm Password" required="required">
+         </div>
+        </div>
+
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary btn-lg">Sign Up</button>
+        </div>
+      </form>
+
+  </div>
+  {% endblock %}
+  </main>
+</body>
+</html>

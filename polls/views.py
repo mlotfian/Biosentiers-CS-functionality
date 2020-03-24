@@ -23,6 +23,20 @@ from django.urls import reverse_lazy
 from django.views.generic.edit import CreateView
 ######
 
+# ### checking if the user already exits , jquery
+# from django.contrib.auth.models import User
+# from django.http import JsonResponse
+#
+# ### user existenc validation
+#
+# def validate_username(request):
+#     username = request.GET.get('username', None)
+#     data = {
+#         'is_taken': User.objects.filter(username__iexact=username).exists()
+#     }
+#     return JsonResponse(data)
+
+
 #for signup view
 
 class SignUpView(CreateView):
@@ -61,15 +75,12 @@ def observe(request):
         poi_form = POIForm(request.POST)
         observation_form = ObservationForm(request.POST, request.FILES)
 
-        #user_form = CustomUserCreationForm(request.POST)
-
         #checking image with clarifai API>>> move this to the frontend
 
         if observation_form.is_valid() and species_form.is_valid() and poi_form.is_valid():
             if identifyPhoto(photo, obs_type):
                 obs = observation_form.save(commit=False)
                 obs.user = CustomUser.objects.get(username=request.user)
-                #obs.user = user_form.save()
                 obs.poi = poi_form.save()
                 obs.species = species_form.save()
                 obs.save()
