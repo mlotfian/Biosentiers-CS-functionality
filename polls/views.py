@@ -7,9 +7,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
 #from django.http import Http404
 
-
-
-from .models import Species, Observation, CustomUser
+from .models import Species, Observation, CustomUser, POI
 
 from .forms import SpeciesForm, ObservationForm, POIForm, CustomUserCreationForm
 
@@ -18,10 +16,16 @@ from clarifai.rest import Image as ClImage
 
 ## for signup
 
-
 from django.urls import reverse_lazy
 from django.views.generic.edit import CreateView
 ######
+from django.shortcuts import render
+import json
+import psycopg2
+
+from django.http import JsonResponse
+from django.core.serializers import serialize
+
 
 # ### checking if the user already exits , jquery
 # from django.contrib.auth.models import User
@@ -36,6 +40,38 @@ from django.views.generic.edit import CreateView
 #     }
 #     return JsonResponse(data)
 
+# displaying all observation points
+
+def map_view(request, *args, **kwargs):
+
+    connection = psycopg2.connect(database="NewBio",user="postgres", password="mary3000", host='localhost')
+    cursor = connection.cursor()
+    cursor.execute("SELECT polls_species.obs_type, polls_species.name, polls_observation.photo, polls_observation.description, polls_observation.date, st_AsGeoJSON(polls_poi.geometry) FROM polls_species, polls_observation, polls_poi where polls_species.id=polls_observation.species_id AND polls_poi.id=polls_observation.poi_id")
+    rows=cursor.fetchall()
+
+    arrJson=[]
+    for row in rows:
+        geo = {"type": "Feature",
+        "properties": {"obs_type": row[0],
+        "name": row[1],
+        "photo": row[2],
+        "description": row[3],
+        "date": str(row[4])},
+        "geometry": json.loads(row[5]),}
+        arrJson.append(geo)
+    geoJSON = {
+    "type": "FeatureCollection",
+    "features": arrJson
+    }
+    
+    print(geoJSON)
+    return render(request ,'map.html', {'geoJSON':geoJSON})
+
+
+###
+# def points_view(request):
+#     points_as_geojson = serialize( 'geojson',POI.objects.all())
+#     return JsonResponse(json.loads(points_as_geojson))
 
 #for signup view
 
@@ -48,6 +84,8 @@ class SignUpView(CreateView):
 
 def index(request):
     template = loader.get_template('index.html')
+    # points = POI.objects.all()
+    # print(points)
     return render(request,'index.html')
 
 # Create your views here.

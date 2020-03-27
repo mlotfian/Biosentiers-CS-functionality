@@ -8,3 +8,5 @@ var map = L.map('map').setView([46.7833, 6.65], 14);
             attribution: '&copy; ' + mapLink + ' Contributors',
             maxZoom: 18,
             }).addTo(map);
+
+// Autocomplete

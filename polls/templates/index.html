@@ -5,6 +5,7 @@
     {% leaflet_css %}
     {% load staticfiles %}
     {% load static %}
+    {{ poi_form.media }}
 
     <meta charset="utf-8" />
 
@@ -42,6 +43,9 @@
           <form class="form-inline my-2 my-lg-0" action="/polls/observe/">
             <button  class="btn btn-outline-success my-2 my-sm-0" type="submit">Add observation</button>
           </form>
+          <form class="form-inline my-2 my-lg-0" action="/polls/mapall/">
+            <button  class="btn btn-outline-success my-2 my-sm-0" type="submit">All observation</button>
+          </form>
 
           <!-- Login sigin links -->
                   <div class="navbar-nav ml-auto">
@@ -74,13 +78,23 @@
                           <li class="nav-item"><a class="nav-link" href="{% url 'polls:signup' %}">signup</a></li>
                         </ul>
 
+
+
                       {% endif %}
                     {% endblock %}
                   </div>
 
         </div>
-
   </nav>
+
+
+
+  <!-- {% for point in points %}
+    <h1>{{ point.geometry }}</h1>
+
+  {% endfor %} -->
+
+
   <!--
   <div id="responsive">
     <img src="{% static 'images/bioSen.PNG' %}" alt="">
@@ -105,8 +119,12 @@ var map = L.map('map').setView([46.7833, 6.65], 14);
             attribution: '&copy; ' + mapLink + ' Contributors',
             maxZoom: 18,
             }).addTo(map);
+        
 
 </script>
+
+
+
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <!-- Latest compiled and minified JavaScript -->
