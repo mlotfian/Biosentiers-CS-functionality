@@ -57,6 +57,7 @@ ON c.id = b.poi_id"""
 
     arrJson=[]
     for row in rows:
+        print(row)
         geo = {"type": "Feature",
         "properties": {"obs_type": row[0],
         "name": row[1],
@@ -77,8 +78,9 @@ ON c.id = b.poi_id"""
 
     return render(request ,'map.html', {'points_json':points_json})
 
+######
 def pointstest(request):
-    points_obs=serialize('geojson',Observation.objects.all())
+    points_obs=serialize('geojson',POI.objects.all())
     return HttpResponse(points_obs,content_type='json')
 
 ###
@@ -97,6 +99,7 @@ ON c.id = b.poi_id"""
 
     arrJson=[]
     for row in rows:
+        print(row)
         geo = {"type": "Feature",
         "properties": {"obs_type": row[0],
         "name": row[1],
@@ -111,7 +114,59 @@ ON c.id = b.poi_id"""
     }
     return JsonResponse(points_json, content_type='json')
 
+# filter observation based on logged it user
 
+def obs_id(request):
+
+    obs_tst = Observation.objects.filter(user_id__in=CustomUser.objects.filter(username=request.user))
+    print(obs_tst)
+    arrGeo = []
+    counter = 0
+    for obs in obs_tst:
+        arrGeo.append(obs.poi)
+
+
+
+
+    arrGeojson = serialize('geojson', arrGeo)
+    # for feature in json.loads(arrGeojson)["features"]:
+    #     obsPk = feature["properties"]["pk"]
+    #     specieName = obs_tst.get(id=obsPk).species.name
+    #     feature["properties"]["name"] = specieName
+
+    print(arrGeojson)
+
+
+
+    # obsJSON = []
+    # for obse in obs_tst:
+    #     r1 = str(obse.poi).split(' (')
+    #     r2 = r1[1].split(')')
+    #     r3 = r2[0].split(' ')
+    #     lon = float(r3[0])
+    #     lat = float(r3[1])
+    #
+    #     geo = {"type": "Feature",
+    #     "properties": {"obs_type": obse.species.obs_type,
+    #     "name": obse.species.name,
+    #     "photo": obse.photo,
+    #     "description": obse.description,
+    #     "date": str(obse.date)},
+    #     "geometry": {
+    #     "type": "Point",
+    #     "coordinates": [
+    #       lon,
+    #       lat]},}
+    #     obsJSON.append(geo)
+    #
+    # obs_json = {
+    # "type": "FeatureCollection",
+    # "features": obsJSON
+    # }
+    # print(obs_json)
+    # testO = serialize('geojson', obs_tst)
+     # return HttpResponse(testO,content_type='json')
+    return render(request, 'obs.html', {'arrGeojson': arrGeojson})
 
 #for signup view
 

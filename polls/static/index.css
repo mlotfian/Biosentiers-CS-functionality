@@ -12,3 +12,9 @@ body {
   height: 30px;
   width: 100px;
 }
+.btn-margin-left {
+    margin-left: 2px;
+}
+.btn-margin-right {
+    margin-right: 2px;
+}

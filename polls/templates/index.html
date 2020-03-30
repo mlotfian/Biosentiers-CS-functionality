@@ -20,6 +20,14 @@
   <!--  <script type="text/javascript" src="/static/js/index.js"></script>-->
 
 </head>
+<style media="screen">
+.btn-margin-left {
+    margin-left: 2px;
+}
+.btn-margin-right {
+    margin-right: 2px;
+}
+</style>
 <body>
 
   <!-- adding navbar -->
@@ -41,10 +49,13 @@
 
           <!-- add observation button to the navbar -->
           <form class="form-inline my-2 my-lg-0" action="/polls/observe/">
-            <button  class="btn btn-outline-success my-2 my-sm-0" type="submit">Add observation</button>
+            <button  class="btn btn-success btn-margin-right" type="submit">Add observation</button>
           </form>
           <form class="form-inline my-2 my-lg-0" action="/polls/mapall/">
-            <button  class="btn btn-outline-success my-2 my-sm-0" type="submit">All observation</button>
+            <button  class="btn btn-info btn-margin-right btn-margin-left" type="submit">All observations</button>
+          </form>
+          <form class="form-inline my-2 my-lg-0" action="/polls/obs/">
+            <button  class="btn btn-info btn-margin-left" type="submit">My observations</button>
           </form>
 
           <!-- Login sigin links -->
@@ -119,7 +130,7 @@ var map = L.map('map').setView([46.7833, 6.65], 14);
             attribution: '&copy; ' + mapLink + ' Contributors',
             maxZoom: 18,
             }).addTo(map);
-        
+
 
 </script>
 

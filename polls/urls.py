@@ -12,5 +12,6 @@ urlpatterns = [
     path('mapall/', views.map_view, name='map'),
     path('points_view/', views.points_view, name='points_view'),
     path('points/', views.pointstest, name='points'),
+    path('obs/', views.obs_id, name='obs'),
 
 ]

@@ -35,38 +35,39 @@
    <link rel="stylesheet" type="text/css" href="http://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/0.4.0/MarkerCluster.css" />
    <link rel="stylesheet" type="text/css" href="http://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/0.4.0/MarkerCluster.Default.css" />
 
-      <style>
-        body {
-            padding: 0;
-            margin: 0;
-        }
-        html, body, #map {
-            height: 100%;
-            width: 100%;
-        }
+   <style>
+     body {
+         padding: 0;
+         margin: 0;
+     }
+     html, body, #map {
+         height: 100%;
+         width: 100%;
+     }
 
 
 
 .navbar a {
-  float: left;
-  padding: 10px;
-  color: white;
-  text-decoration: none;
-  font-size: 17px;
+float: left;
+padding: 10px;
+color: white;
+text-decoration: none;
+font-size: 17px;
 }
 
 .navbar a:hover {
-  background-color: #000;
+background-color: #000;
 }
 
 .active {
-  background-color: #4CAF50;
+background-color: #4CAF50;
 }
 
 
-    </style>
+ </style>
 </head>
 <body>
+
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <a class="active" href="{% url 'index' %}"><i class="fa fa-fw fa-home"></i> Home</a>
 
@@ -81,13 +82,13 @@
         var map = L.map('map').setView([46.7833,6.65],12);
 
         L.tileLayer('https://api.maptiler.com/maps/streets/{z}/{x}/{y}.png?key=9GKOA9jJ3jCIWFUd8k00', {attribution: '<a href="https://www.maptiler.com/copyright/" target="_blank">&copy; MapTiler</a> <a href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a>',}).addTo(map);
-        const jsonFeatures = {{ points_json | safe }}
-
-          L.geoJSON(jsonFeatures, {
-          onEachFeature: function (feature, layer) {
-            layer.bindPopup('<p><strong>Species Type: </strong>'+feature.properties.obs_type+'</p><p><strong>Species Name: </strong>' + feature.properties.name + '</p><p><strong>Observation Date: </strong>' + feature.properties.date + '</p>');
-          }
-        }).addTo(map);
+        const jsonFeatures = {{ arrGeojson | safe }}
+        L.geoJSON(jsonFeatures).addTo(map);
+        //   L.geoJSON(jsonFeatures, {
+        //   onEachFeature: function (feature, layer) {
+        //     layer.bindPopup('<p><strong>Species Type: </strong>'+feature.properties.obs_type+'</p><p><strong>Species Name: </strong>' + feature.properties.name + '</p><p><strong>Observation Date: </strong>' + feature.properties.date + '</p>');
+        //   }
+        // }).addTo(map);
 
 
 
