@@ -46,7 +46,13 @@ def map_view(request, *args, **kwargs):
 
     connection = psycopg2.connect(database="NewBio",user="postgres", password="mary3000", host='localhost')
     cursor = connection.cursor()
-    cursor.execute("SELECT polls_species.obs_type, polls_species.name, polls_observation.photo, polls_observation.description, polls_observation.date, st_AsGeoJSON(polls_poi.geometry) FROM polls_species, polls_observation, polls_poi where polls_species.id=polls_observation.species_id AND polls_poi.id=polls_observation.poi_id")
+    query = """SELECT a.obs_type, a.name, b.photo, b.description, b.date, st_AsGeoJSON(c.geometry)
+FROM polls_species a
+JOIN polls_observation b
+ON a.id = b.species_id
+JOIN polls_poi c
+ON c.id = b.poi_id"""
+    cursor.execute(query)
     rows=cursor.fetchall()
 
     arrJson=[]
@@ -59,19 +65,53 @@ def map_view(request, *args, **kwargs):
         "date": str(row[4])},
         "geometry": json.loads(row[5]),}
         arrJson.append(geo)
-    geoJSON = {
+    points_json = {
     "type": "FeatureCollection",
     "features": arrJson
     }
-    
-    print(geoJSON)
-    return render(request ,'map.html', {'geoJSON':geoJSON})
 
+    print(points_json)
+
+    # for i in range(len(points_json['features'])):
+    #     print(points_json['features'][i]['properties']['name'])
+
+    return render(request ,'map.html', {'points_json':points_json})
+
+def pointstest(request):
+    points_obs=serialize('geojson',Observation.objects.all())
+    return HttpResponse(points_obs,content_type='json')
 
 ###
-# def points_view(request):
-#     points_as_geojson = serialize( 'geojson',POI.objects.all())
-#     return JsonResponse(json.loads(points_as_geojson))
+def points_view(request):
+
+    connection = psycopg2.connect(database="NewBio",user="postgres", password="mary3000", host='localhost')
+    cursor = connection.cursor()
+    query = """SELECT a.obs_type, a.name, b.photo, b.description, b.date, st_AsGeoJSON(c.geometry)
+FROM polls_species a
+JOIN polls_observation b
+ON a.id = b.species_id
+JOIN polls_poi c
+ON c.id = b.poi_id"""
+    cursor.execute(query)
+    rows=cursor.fetchall()
+
+    arrJson=[]
+    for row in rows:
+        geo = {"type": "Feature",
+        "properties": {"obs_type": row[0],
+        "name": row[1],
+        "photo": row[2],
+        "description": row[3],
+        "date": str(row[4])},
+        "geometry": json.loads(row[5]),}
+        arrJson.append(geo)
+    points_json = {
+    "type": "FeatureCollection",
+    "features": arrJson
+    }
+    return JsonResponse(points_json, content_type='json')
+
+
 
 #for signup view
 

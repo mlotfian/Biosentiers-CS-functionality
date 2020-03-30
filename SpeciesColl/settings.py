@@ -141,6 +141,11 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
 
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+
+MEDIA_URL = '/media/'
+
 GDAL_LIBRARY_PATH = r'C:\OSGeo4W\bin\gdal202.dll'
 GDAL_DATA_PATH = r'C:\OSGeo4W\share\gdal\gcs.csv'
 #GDAL_DRIVER_PATH = r'C:\OSGeo4W\bin\gdalplugins'
@@ -151,3 +156,11 @@ LOGIN_REDIRECT_URL = 'index'
 
 # redirect after logging out to homeage
 LOGOUT_REDIRECT_URL = 'index'
+
+#
+# LEAFLET_CONFIG = {
+#   'DEFAULT_CENTER': (46.7833,6.65),
+#   'DEFAULT_ZOOM': 12,
+#   'MIN_ZOOM': 1,
+#   'MAX_ZOOM': 20,
+# }

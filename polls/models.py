@@ -39,6 +39,7 @@ class Observation(models.Model):
     photo = models.ImageField(upload_to='media', default='no image')
 
 
+
 class CustomUser(AbstractUser):
     pass
     # add additional fields in here
