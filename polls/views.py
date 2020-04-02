@@ -42,7 +42,7 @@ from django.core.serializers import serialize
 
 # displaying all observation points
 
-def map_view(request, *args, **kwargs):
+def all_obs(request, *args, **kwargs):
 
     connection = psycopg2.connect(database="NewBio",user="postgres", password="mary3000", host='localhost')
     cursor = connection.cursor()
@@ -55,6 +55,7 @@ ON c.id = b.poi_id"""
     cursor.execute(query)
     rows=cursor.fetchall()
 
+
     arrJson=[]
     for row in rows:
         print(row)
@@ -66,15 +67,13 @@ ON c.id = b.poi_id"""
         "date": str(row[4])},
         "geometry": json.loads(row[5]),}
         arrJson.append(geo)
+        print(row)
     points_json = {
     "type": "FeatureCollection",
     "features": arrJson
     }
 
     print(points_json)
-
-    # for i in range(len(points_json['features'])):
-    #     print(points_json['features'][i]['properties']['name'])
 
     return render(request ,'map.html', {'points_json':points_json})
 
@@ -83,90 +82,32 @@ def pointstest(request):
     points_obs=serialize('geojson',POI.objects.all())
     return HttpResponse(points_obs,content_type='json')
 
-###
-def points_view(request):
 
-    connection = psycopg2.connect(database="NewBio",user="postgres", password="mary3000", host='localhost')
-    cursor = connection.cursor()
-    query = """SELECT a.obs_type, a.name, b.photo, b.description, b.date, st_AsGeoJSON(c.geometry)
-FROM polls_species a
-JOIN polls_observation b
-ON a.id = b.species_id
-JOIN polls_poi c
-ON c.id = b.poi_id"""
-    cursor.execute(query)
-    rows=cursor.fetchall()
-
-    arrJson=[]
-    for row in rows:
-        print(row)
-        geo = {"type": "Feature",
-        "properties": {"obs_type": row[0],
-        "name": row[1],
-        "photo": row[2],
-        "description": row[3],
-        "date": str(row[4])},
-        "geometry": json.loads(row[5]),}
-        arrJson.append(geo)
-    points_json = {
-    "type": "FeatureCollection",
-    "features": arrJson
-    }
-    return JsonResponse(points_json, content_type='json')
 
 # filter observation based on logged it user
 
-def obs_id(request):
+def my_obs(request):
 
     obs_tst = Observation.objects.filter(user_id__in=CustomUser.objects.filter(username=request.user))
-    print(obs_tst)
     arrGeo = []
-    counter = 0
+
     for obs in obs_tst:
         arrGeo.append(obs.poi)
 
-
-
-
     arrGeojson = serialize('geojson', arrGeo)
-    # for feature in json.loads(arrGeojson)["features"]:
-    #     obsPk = feature["properties"]["pk"]
-    #     specieName = obs_tst.get(id=obsPk).species.name
-    #     feature["properties"]["name"] = specieName
+    res = json.loads(arrGeojson)
+    for feature in res["features"]:
+        for obs in obs_tst:
+            if(str(obs.id) == feature["properties"]["pk"]):
+                print("found it")
+                feature["properties"]["name"] = str(obs.species.name)
+                feature["properties"]["obs_type"] = obs.species.obs_type
+                feature["properties"]["description"] = obs.description
+                feature["properties"]["date"] = str(obs.date)
+                feature["properties"]["photo"] = str(obs.photo).split(' ')[0]
 
-    print(arrGeojson)
-
-
-
-    # obsJSON = []
-    # for obse in obs_tst:
-    #     r1 = str(obse.poi).split(' (')
-    #     r2 = r1[1].split(')')
-    #     r3 = r2[0].split(' ')
-    #     lon = float(r3[0])
-    #     lat = float(r3[1])
-    #
-    #     geo = {"type": "Feature",
-    #     "properties": {"obs_type": obse.species.obs_type,
-    #     "name": obse.species.name,
-    #     "photo": obse.photo,
-    #     "description": obse.description,
-    #     "date": str(obse.date)},
-    #     "geometry": {
-    #     "type": "Point",
-    #     "coordinates": [
-    #       lon,
-    #       lat]},}
-    #     obsJSON.append(geo)
-    #
-    # obs_json = {
-    # "type": "FeatureCollection",
-    # "features": obsJSON
-    # }
-    # print(obs_json)
-    # testO = serialize('geojson', obs_tst)
-     # return HttpResponse(testO,content_type='json')
-    return render(request, 'obs.html', {'arrGeojson': arrGeojson})
+    print(res)
+    return render(request, 'obs.html', {'res': res})
 
 #for signup view
 

@@ -9,9 +9,8 @@ urlpatterns = [
     path('detail/', views.detail, name='detail'),
     path('observe/', views.observe, name='name'),
     path('signup/', views.SignUpView.as_view(), name='signup'),
-    path('mapall/', views.map_view, name='map'),
-    path('points_view/', views.points_view, name='points_view'),
+    path('allObs/', views.all_obs, name='map'),
     path('points/', views.pointstest, name='points'),
-    path('obs/', views.obs_id, name='obs'),
+    path('myObs/', views.my_obs, name='obs'),
 
 ]
