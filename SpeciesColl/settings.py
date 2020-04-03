@@ -143,7 +143,6 @@ STATICFILES_DIRS = [
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-
 MEDIA_URL = '/media/'
 
 GDAL_LIBRARY_PATH = r'C:\OSGeo4W\bin\gdal202.dll'

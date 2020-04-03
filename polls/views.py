@@ -58,7 +58,6 @@ ON c.id = b.poi_id"""
 
     arrJson=[]
     for row in rows:
-        print(row)
         geo = {"type": "Feature",
         "properties": {"obs_type": row[0],
         "name": row[1],
@@ -67,13 +66,13 @@ ON c.id = b.poi_id"""
         "date": str(row[4])},
         "geometry": json.loads(row[5]),}
         arrJson.append(geo)
-        print(row)
+
     points_json = {
     "type": "FeatureCollection",
     "features": arrJson
     }
 
-    print(points_json)
+
 
     return render(request ,'map.html', {'points_json':points_json})
 
@@ -99,14 +98,13 @@ def my_obs(request):
     for feature in res["features"]:
         for obs in obs_tst:
             if(str(obs.id) == feature["properties"]["pk"]):
-                print("found it")
                 feature["properties"]["name"] = str(obs.species.name)
                 feature["properties"]["obs_type"] = obs.species.obs_type
                 feature["properties"]["description"] = obs.description
                 feature["properties"]["date"] = str(obs.date)
                 feature["properties"]["photo"] = str(obs.photo).split(' ')[0]
 
-    print(res)
+
     return render(request, 'obs.html', {'res': res})
 
 #for signup view

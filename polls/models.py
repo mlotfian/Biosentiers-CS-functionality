@@ -15,13 +15,13 @@ class Species(models.Model):
     ('tree', 'Tree'),
     ('bird', 'Bird'),
     ('flower','Flower'),
-    ('buterfly','Butterfly'),
+    ('butterfly','Butterfly'),
 ]
 
     name = models.CharField(max_length=255, verbose_name="Name",)
     obs_type = models.CharField(max_length=255, choices = species_choices,default='none' )
     def __str__(self):
-        return self.name, self.obs_type
+        return '{} {}'.format(self.name, self.obs_type)
 
 class POI(models.Model):
 

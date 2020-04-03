@@ -62,7 +62,14 @@ background-color: #000;
 .active {
 background-color: #4CAF50;
 }
-
+.popupImage {
+    max-width: 20%;
+    max-height: 20%;
+}
+img {
+  max-width: 150px;
+  max-height: 200px;
+}
 
  </style>
 </head>
@@ -86,9 +93,25 @@ background-color: #4CAF50;
 
         L.geoJSON(jsonFeatures, {
           onEachFeature: function (feature, layer) {
-            layer.bindPopup('<p><strong>Species Type: </strong>'+feature.properties.obs_type+'</p><p><strong>Species Name: </strong>' + feature.properties.name + '</p><p><strong>Observation Date: </strong>' + feature.properties.date + '</p>');
+            layer.bindPopup('<p><strong>Species Type: </strong>'+feature.properties.obs_type+'</p><p><strong>Species Name: </strong>'
+            + feature.properties.name + '</p><p><strong>Observation Date: </strong>'
+            + feature.properties.date + '</p><img src=/media/'
+            + feature.properties.photo + '/>', {maxWidth: "auto"});
           }
         }).addTo(map);
+
+// centring the popup arrow to the marker
+        document.querySelector(".leaflet-popup-pane").addEventListener("load", function (event) {
+	         var target = event.target,
+  		         tagName = target.tagName,
+               popup = map._popup;
+
+        console.log("got load event from " + tagName);
+
+        if (tagName === "IMG" && popup) {
+  	       popup.update();
+         }
+       }, true);
 
 
 
