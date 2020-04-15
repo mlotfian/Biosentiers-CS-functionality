@@ -1,4 +1,5 @@
 from django.contrib import admin
+from leaflet.admin import LeafletGeoAdmin
 
 from .models import Species, Observation, POI, CustomUser
 
@@ -18,6 +19,6 @@ class CustomUserAdmin(UserAdmin):
 
 admin.site.register(Species)
 admin.site.register(Observation)
-admin.site.register(POI)
+admin.site.register(POI, LeafletGeoAdmin)
 
 admin.site.register(CustomUser, CustomUserAdmin)

@@ -27,18 +27,10 @@ from django.http import JsonResponse
 from django.core.serializers import serialize
 
 
-# ### checking if the user already exits , jquery
-# from django.contrib.auth.models import User
-# from django.http import JsonResponse
-#
-# ### user existenc validation
-#
-# def validate_username(request):
-#     username = request.GET.get('username', None)
-#     data = {
-#         'is_taken': User.objects.filter(username__iexact=username).exists()
-#     }
-#     return JsonResponse(data)
+# for wizard
+from formtools.wizard.views import SessionWizardView
+
+
 
 # displaying all observation points
 
@@ -107,6 +99,8 @@ def my_obs(request):
 
     return render(request, 'obs.html', {'res': res})
 
+
+
 #for signup view
 
 class SignUpView(CreateView):
@@ -171,6 +165,51 @@ def observe(request):
 
 
     return render(request, 'name.html', context)
+
+
+##########test###################
+def test(request):
+    context = {
+    'observation_form': ObservationForm(),
+    'species_form': SpeciesForm(),
+    'poi_form': POIForm()
+    }
+
+
+    if request.method == 'POST':
+        obs_type = request.POST['obs_type']
+        geometry = request.POST['geometry']
+        photo = request.FILES['photo']
+
+        species_form = SpeciesForm(request.POST, request.FILES)
+        poi_form = POIForm(request.POST)
+        observation_form = ObservationForm(request.POST, request.FILES)
+
+        #checking image with clarifai API>>> move this to the frontend
+
+        if observation_form.is_valid() and species_form.is_valid() and poi_form.is_valid():
+            if identifyPhoto(photo, obs_type):
+                obs = observation_form.save(commit=False)
+                obs.user = CustomUser.objects.get(username=request.user)
+                obs.poi = poi_form.save()
+                obs.species = species_form.save()
+                obs.save()
+
+                return HttpResponseRedirect(reverse('index'))
+            else:
+                observation_form = ObservationForm()
+                species_form = SpeciesForm()
+                poi_form = POIForm()
+
+                return render(request, 'fwizardTest.html', {'form': context, 'invalidPhoto': True})
+    else:
+        observation_form = ObservationForm()
+        species_form = SpeciesForm()
+        poi_form = POIForm()
+
+
+    return render(request, 'fwizardTest.html', context)
+######################################################################################################
 
 def identifyPhoto(photo, obs_type):
     app = ClarifaiApp(api_key='366cc97df9c14f50b0ec95e98724b3e8')

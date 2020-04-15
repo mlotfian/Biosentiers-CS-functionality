@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'formtools',
 ]
 
 MIDDLEWARE = [
@@ -157,9 +158,9 @@ LOGIN_REDIRECT_URL = 'index'
 LOGOUT_REDIRECT_URL = 'index'
 
 #
-# LEAFLET_CONFIG = {
-#   'DEFAULT_CENTER': (46.7833,6.65),
-#   'DEFAULT_ZOOM': 12,
-#   'MIN_ZOOM': 1,
-#   'MAX_ZOOM': 20,
-# }
+LEAFLET_CONFIG = {
+  'DEFAULT_CENTER': (46.7833,6.65),
+  'DEFAULT_ZOOM': 12,
+  'MIN_ZOOM': 1,
+  'MAX_ZOOM': 20,
+}

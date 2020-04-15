@@ -27,13 +27,10 @@
     integrity="sha512-mNqn2Wg7tSToJhvHcqfzLMU6J4mkOImSPTxVZAdo+lcPlk+GhZmYgACEe0x35K7YzW1zJ7XyJV/TT1MrdXvMcA==" crossorigin=""></script>
 
    <!-- marker clusetr -->
-   <link rel="stylesheet" href="{% static 'markercluster.css' %}">
-   <script src="{% static 'markercluster.js' %}">
+   <script src='https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-markercluster/v0.4.0/leaflet.markercluster.js'></script>
+<link href='https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-markercluster/v0.4.0/MarkerCluster.css' rel='stylesheet' />
+<link href='https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-markercluster/v0.4.0/MarkerCluster.Default.css' rel='stylesheet' />
 
-   </script>
-   <script type='text/javascript' src='http://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/0.4.0/leaflet.markercluster.js'></script>
-   <link rel="stylesheet" type="text/css" href="http://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/0.4.0/MarkerCluster.css" />
-   <link rel="stylesheet" type="text/css" href="http://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/0.4.0/MarkerCluster.Default.css" />
 
    <style>
      body {
@@ -88,9 +85,10 @@ img {
 
         var map = L.map('map').setView([46.7833,6.65],12);
 
-        L.tileLayer('https://api.maptiler.com/maps/streets/{z}/{x}/{y}.png?key=9GKOA9jJ3jCIWFUd8k00', {attribution: '<a href="https://www.maptiler.com/copyright/" target="_blank">&copy; MapTiler</a> <a href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a>',}).addTo(map);
-        const jsonFeatures = {{ res | safe }}
 
+        L.tileLayer('https://api.maptiler.com/maps/streets/{z}/{x}/{y}.png?key=9GKOA9jJ3jCIWFUd8k00', {attribution: '<a href="https://www.maptiler.com/copyright/" target="_blank">&copy; MapTiler</a> <a href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a>',}).addTo(map);
+
+        const jsonFeatures = {{ res | safe }}
         L.geoJSON(jsonFeatures, {
           onEachFeature: function (feature, layer) {
             layer.bindPopup('<p><strong>Species Type: </strong>'+feature.properties.obs_type+'</p><p><strong>Species Name: </strong>'
@@ -99,6 +97,9 @@ img {
             + feature.properties.photo + '/>', {maxWidth: "auto"});
           }
         }).addTo(map);
+
+        ///////////////////////////////////
+
 
 // centring the popup arrow to the marker
         document.querySelector(".leaflet-popup-pane").addEventListener("load", function (event) {

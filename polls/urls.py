@@ -11,5 +11,7 @@ urlpatterns = [
     path('allObs/', views.all_obs, name='map'),
     path('points/', views.pointstest, name='points'),
     path('myObs/', views.my_obs, name='obs'),
+    path('ftest/', views.test, name='ftest'),
+    path('test/', views.test, name='ftest'),
 
 ]
