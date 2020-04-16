@@ -163,4 +163,6 @@ LEAFLET_CONFIG = {
   'DEFAULT_ZOOM': 12,
   'MIN_ZOOM': 1,
   'MAX_ZOOM': 20,
+  'map_height': '100%',
+  'map_width': '100%',
 }

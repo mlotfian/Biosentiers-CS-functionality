@@ -1,18 +1,21 @@
 {% load leaflet_tags %}
 <html>
   <head>
+  <meta name="viewport" content="user-scalable=no, initial-scale=1, width=device-width">
   <meta charset="utf-8" />
+
   {% load staticfiles %}
   {% load static %}
 
   {% leaflet_js %}
   {% leaflet_css %}
-  {% leaflet_js plugins="forms" %}
-  {% leaflet_css plugins="forms" %}
+  {% leaflet_js plugins="ALL" %}
+  {% leaflet_css plugins="ALL" %}
   {{ form.media }}
   {{ species_form.media }}
   {{ observation_form.media }}
   {{ poi_form.media }}
+
 
 
   <!-- <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7/leaflet.css" /> -->
@@ -54,6 +57,8 @@
 
    .form-wrapper{
        position: relative;
+       width: 100%;
+
    }
    .map-wrapper{
      height: auto;
@@ -64,12 +69,14 @@
 
   .btn {
     width:100%;
-    height: 60px;
+    height: 10%;
     background-color: black;
     position: absolute;
     top: 80%;
 
         }
+
+
   .next {
       position: absolute;
       left: 80%;
@@ -145,7 +152,16 @@ background-color: #bbbbbb;
 } */
 
 .formDj {
-  margin: 0 0 0 0;
+  margin: 0;
+}
+
+/*Invert dropdown to dropup*/
+.awesomplete > ul {
+  bottom: 100% !important;
+}
+/*Hide the arrow*/
+.awesomplete > ul::before{
+  display:none;
 }
 
 
@@ -154,26 +170,27 @@ background-color: #bbbbbb;
   </head>
   <body>
 
-
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <span class="navbar-brand mb-0 h1">
+          <img class="brandsize" src="{% static 'images/bio.png' %}" alt="">
+        </span>
+    </nav>
 <div class="form-wrapper">
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-      <span class="navbar-brand mb-0 h1">
-        <img class="brandsize" src="{% static 'images/bio.png' %}" alt="">
-      </span>
-  </nav>
+
 <form class="formDj" method="post" enctype="multipart/form-data">
 
   {% csrf_token %}
 
         <div class="map-wrapper">
           <!-- One "tab" for each step in the form: -->
+
           {{ poi_form.geometry }}
 
         </div>
 
         <div class="btn">
           <div class="tab" id="observation_type">
-            <select class="species_form form-control" name="obs_type">
+            <select class="species_form form-control selectpicker" name="obs_type">
                 <option value="" selected disabled hidden>Select species type</option>
                 <option value="tree">Tree</option>
                 <option value="bird">Bird</option>
@@ -194,7 +211,7 @@ background-color: #bbbbbb;
             <div class="tab">
               <input type="file" class="btnImage observation_form" name="photo"/>
             </div>
-            <div style="overflow:auto;">
+            <div>
                 <div id="change" class="next"><button id="submitButton" type="submit">Submit</button></div>
                 <div id="change" class="next"><button type="button" id="nextBtn" onclick="nextPrev(1)">Next <i class="fas fa-arrow-alt-circle-right fa-lg"></i></button></div>
                 <div class="prev"><button type="button" id="prevBtn" onclick="nextPrev(-1)">Back <i class="fas fa-arrow-alt-circle-left fa-lg"></i></button></div>
@@ -202,7 +219,7 @@ background-color: #bbbbbb;
         </div>
 
     <!-- Circles which indicates the steps of the form: -->
-    <div style="text-align:center;margin-top:40px;">
+    <div>
       <span class="step"></span>
       <span class="step"></span>
       <span class="step"></span>
@@ -237,6 +254,18 @@ background-color: #bbbbbb;
         awesomplete.list = list;
       });
     });
+</script>
+
+<!-- leaflet map -->
+<script type="text/javascript">
+
+YourGeometryField = L.GeometryField.extend({
+addTo: function (map) {
+L.GeometryField.prototype.addTo.call(this, map);
+console.log(this);
+},
+
+});
 </script>
 
 

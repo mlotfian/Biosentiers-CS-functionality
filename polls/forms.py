@@ -32,14 +32,17 @@ class SpeciesForm(ModelForm):
         fields = ['obs_type','name']
         #obs_type = forms.ChoiceField(choices=Species.species_choices)
 
+class YourMapWidget(LeafletWidget):
+    geometry_field_class = 'YourGeometryField'
 
 
 class POIForm(ModelForm):
     class Meta:
         model = POI
         fields = ('geometry',)
+        # widgets = {'geometry': YourMapWidget()}
         widgets = {'geometry': LeafletWidget(attrs={
-        'map_height': '100%',
+        'map_height': '91%',
         'map_width': '100%',
         'DEFAULT_CENTER': (46.7833,6.65),
         'DEFAULT_ZOOM': 16,
