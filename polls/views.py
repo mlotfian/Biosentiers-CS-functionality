@@ -188,20 +188,20 @@ def test(request):
         #checking image with clarifai API>>> move this to the frontend
 
         if observation_form.is_valid() and species_form.is_valid() and poi_form.is_valid():
-            if identifyPhoto(photo, obs_type):
-                obs = observation_form.save(commit=False)
-                obs.user = CustomUser.objects.get(username=request.user)
-                obs.poi = poi_form.save()
-                obs.species = species_form.save()
-                obs.save()
+            # if identifyPhoto(photo, obs_type):
+            obs = observation_form.save(commit=False)
+            obs.user = CustomUser.objects.get(username=request.user)
+            obs.poi = poi_form.save()
+            obs.species = species_form.save()
+            obs.save()
 
-                return HttpResponseRedirect(reverse('index'))
-            else:
-                observation_form = ObservationForm()
-                species_form = SpeciesForm()
-                poi_form = POIForm()
+            return HttpResponseRedirect(reverse('index'))
+        else:
+            observation_form = ObservationForm()
+            species_form = SpeciesForm()
+            poi_form = POIForm()
 
-                return render(request, 'fwizardTest.html', {'form': context, 'invalidPhoto': True})
+            return render(request, 'fwizardTest.html', {'form': context, 'invalidPhoto': True})
     else:
         observation_form = ObservationForm()
         species_form = SpeciesForm()
@@ -211,27 +211,27 @@ def test(request):
     return render(request, 'fwizardTest.html', context)
 ######################################################################################################
 
-def identifyPhoto(photo, obs_type):
-    app = ClarifaiApp(api_key='366cc97df9c14f50b0ec95e98724b3e8')
-
-    model = app.models.get('general-v1.3')
-    image = ClImage(file_obj=photo)
-    response_data = model.predict([image])
-
-    tag_urls = []
-    prob = []
-    for concept in response_data['outputs'][0]['data']['concepts']:
-        tag_urls.append(concept['name'])
-        prob.append(concept['value'])
-
-    predic = dict(zip(tag_urls, prob))
-    listS=[]
-    for my_key, my_value in predic.items():
-        if predic[my_key]>0.90:
-            listS.append(my_key)
-
-    if obs_type in listS:
-        print('The image correspond with the right species type')
-        return True
-    else:
-        print('The photo does not look like a ' + obs_type)
+# def identifyPhoto(photo, obs_type):
+#     app = ClarifaiApp(api_key='366cc97df9c14f50b0ec95e98724b3e8')
+#
+#     model = app.models.get('general-v1.3')
+#     image = ClImage(file_obj=photo)
+#     response_data = model.predict([image])
+#
+#     tag_urls = []
+#     prob = []
+#     for concept in response_data['outputs'][0]['data']['concepts']:
+#         tag_urls.append(concept['name'])
+#         prob.append(concept['value'])
+#
+#     predic = dict(zip(tag_urls, prob))
+#     listS=[]
+#     for my_key, my_value in predic.items():
+#         if predic[my_key]>0.90:
+#             listS.append(my_key)
+#
+#     if obs_type in listS:
+#         print('The image correspond with the right species type')
+#         return True
+#     else:
+#         print('The photo does not look like a ' + obs_type)

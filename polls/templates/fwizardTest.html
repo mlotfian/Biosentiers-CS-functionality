@@ -1,7 +1,7 @@
 {% load leaflet_tags %}
 <html>
   <head>
-  <meta name="viewport" content="user-scalable=no, initial-scale=1, width=device-width">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta charset="utf-8" />
 
   {% load staticfiles %}
@@ -18,26 +18,25 @@
 
 
 
-  <!-- <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7/leaflet.css" /> -->
+
   <link rel="stylesheet" href="{% static 'index.css' %}">
+  <link rel="stylesheet" href="{% static 'addObs.css' %}">
+  <!-- bootstrap 4 -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
   integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+  integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 
-
+  <!-- fontawesome -->
   <script src="https://kit.fontawesome.com/0ab399aea4.js" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
   integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
 
     <!-- <link href="//cdn.bootcss.com/bootstrap-datetimepicker/4.17.44/css/bootstrap-datetimepicker.min.css" rel="stylesheet"> -->
-    <script src="//cdn.bootcss.com/jquery/3.0.0/jquery.min.js"></script>
-    <script src="//cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
+    <!-- leaflet -->
     <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7/leaflet.css" />
-    <link rel="stylesheet" href="{% static 'index.css' %}">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-
 
     <!--Autocomplete-->
     <link rel="stylesheet" href="https://cdn.rawgit.com/LeaVerou/awesomplete/gh-pages/awesomplete.css" />
@@ -46,126 +45,39 @@
 
     <!-- Clarifai -->
     <script type="text/javascript" src="https://sdk.clarifai.com/js/clarifai-latest.js"></script>
+    <script type="text/javascript" src="{% static 'keys.js' %}"></script>
+    <script type="text/javascript" src="{% static 'predict.js' %}"></script>
+    <script>
+    try {
+      var app = new Clarifai.App({
+      apiKey: myApiKey
+      });
+    }
+    catch(err) {
+      alert("Need a valid API Key!");
+      throw "Invalid API Key";
+    }
 
+    // Checks for valid image type
+    function validFile(imageName) {
+      var lowerImageName = imageName.toLowerCase();
+      return lowerImageName.search(/jpg|png|bmp|tiff/gi) != -1;
+    }
 
-<style>
-
-  html, body{
-   height: 100%;
-   width: 100%;
-   }
-
-   .form-wrapper{
-       position: relative;
-       width: 100%;
-
-   }
-   .map-wrapper{
-     height: auto;
-     width: 100%;
-     position: relative;
-     z-index: 0;
-   }
-
-  .btn {
-    width:100%;
-    height: 10%;
-    background-color: black;
-    position: absolute;
-    top: 80%;
-
+    window.onload = function() {
+      // Trigger call to Clarifai when user selects file
+      document.getElementById('filename').onchange = function() {
+        if(filename.value == '') {
+          alert('Please browse for a file!');
+          return;
+        } else if (!validFile(filename.value)) {
+          alert('Supported File Types: JPEG, PNG, TIFF, BMP');
+          return;
         }
-
-
-  .next {
-      position: absolute;
-      left: 80%;
+        predict_click($('#filename').val(), 'file');
+      };
     }
-  .prev {
-      position: absolute;
-      right: 80%;
-    }
-
-/* * {
-box-sizing: border-box;
-} */
-
-/* #regForm {
-background-color: #ffffff;
-margin: 100px auto;
-font-family: Raleway;
-padding: 40px;
-width: 70%;
-min-width: 300px;
-} */
-
-
-/* Mark input boxes that gets an error on validation: */
-input.invalid {
-background-color: #ffdddd;
-}
-
-/* Hide all steps by default: */
-.tab {
-  position: absolute;
-  top: 50%; left: 50%;
-  transform: translate(-50%,-50%);
-display: none;
-}
-
-button {
-background-color: #4CAF50;
-color: #ffffff;
-border: none;
-padding: 10px 20px;
-font-size: 17px;
-font-family: Raleway;
-cursor: pointer;
-}
-
-button:hover {
-opacity: 0.8;
-}
-
-#prevBtn {
-background-color: #bbbbbb;
-}
-
-
-
-.btnImage {
-  border: 2px solid gray;
-  color: gray;
-  background-color: white;
-  padding: 8px 20px;
-  border-radius: 8px;
-  font-size: 15px;
-  font-weight: bold;
-}
-
-/* .upload-btn-wrapper input[type=file] {
-  font-size: 80px;
-  position: absolute;
-  left: 0;
-  top: 0;
-  opacity: 0;
-} */
-
-.formDj {
-  margin: 0;
-}
-
-/*Invert dropdown to dropup*/
-.awesomplete > ul {
-  bottom: 100% !important;
-}
-/*Hide the arrow*/
-.awesomplete > ul::before{
-  display:none;
-}
-
-
-  </style>
+  </script>
 
   </head>
   <body>
@@ -188,34 +100,41 @@ background-color: #bbbbbb;
 
         </div>
 
-        <div class="btn">
-          <div class="tab" id="observation_type">
-            <select class="species_form form-control selectpicker" name="obs_type">
-                <option value="" selected disabled hidden>Select species type</option>
-                <option value="tree">Tree</option>
-                <option value="bird">Bird</option>
-                <option value="butterfly">Butterfly</option>
-                <option value="flower">Flower</option>
-            </select>
+
+
+        <div class="container-fluid btn2">
+          <div id="div1">
+            <div class="tab" id="observation_type">
+              <select id="species_type" class="species_form form-control selectpicker" name="obs_type">
+                  <option value="" selected disabled hidden>Select species type</option>
+                  <option value="tree">Tree</option>
+                  <option value="bird">Bird</option>
+                  <option value="butterfly">Butterfly</option>
+                  <option value="flower">Flower</option>
+              </select>
+            </div>
+
+              <div class="tab">
+                <input id="species" class="species_form" name="name" placeholder="Enter species name">
+              </div>
+              <div class="tab">
+                <input class="observation_form" name="description" placeholder="Enter your description">
+              </div>
+              <div class="tab">
+                <div style="padding: 10px;">{{ observation_form.date }}</div>
+              </div>
+              <div class="tab">
+                <input id="filename" type="file" class="btnImage observation_form" name="photo"/>
+              </div>
           </div>
 
-            <div class="tab">
-              <input id="species" class="species_form" name="name" placeholder="Enter species name">
+            <!-- adding Next / Previous / submit buttons -->
+            <div id="div2">
+              <div id="change" class="next"><button class="btn btn-success" id="submitButton" type="submit">Send <i class="far fa-paper-plane fa-sm"></i></button></div>
+              <div id="change" class="next"><button class="btn btn-success" type="button" id="nextBtn" onclick="nextPrev(1)">Next <i class="fas fa-arrow-alt-circle-right fa-lg"></i></button></div>
+              <div class="prev"><button type="button" class="btn btn-secondary" id="prevBtn" onclick="nextPrev(-1)">Back <i class="fas fa-arrow-alt-circle-left fa-lg"></i></button></div>
             </div>
-            <div class="tab">
-              <input class="observation_form" name="description" placeholder="Enter your description">
-            </div>
-            <div class="tab">
-              <div style="padding: 10px;">{{ observation_form.date }}</div>
-            </div>
-            <div class="tab">
-              <input type="file" class="btnImage observation_form" name="photo"/>
-            </div>
-            <div>
-                <div id="change" class="next"><button id="submitButton" type="submit">Submit</button></div>
-                <div id="change" class="next"><button type="button" id="nextBtn" onclick="nextPrev(1)">Next <i class="fas fa-arrow-alt-circle-right fa-lg"></i></button></div>
-                <div class="prev"><button type="button" id="prevBtn" onclick="nextPrev(-1)">Back <i class="fas fa-arrow-alt-circle-left fa-lg"></i></button></div>
-            </div>
+
         </div>
 
     <!-- Circles which indicates the steps of the form: -->
@@ -229,6 +148,8 @@ background-color: #bbbbbb;
 
 </form>
 </div>
+
+
 
  <!--  Autocomplete name, from BioSentiers db -->
 <script type="text/javascript">

@@ -1,0 +1,60 @@
+<html>
+<head>
+    {% load leaflet_tags %}
+    {% leaflet_js %}
+    {% leaflet_css %}
+    {% load staticfiles %}
+    {% load static %}
+
+    <meta charset="utf-8" />
+
+    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7/leaflet.css" />
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+    <script
+        src="http://cdn.leafletjs.com/leaflet-0.7/leaflet.js">
+
+    </script>
+  <!--  <script type="text/javascript" src="/static/js/index.js"></script>-->
+
+</head>
+<body>
+<div id="responsive">
+  <img src="{% static 'images/bioSen.PNG' %}" alt="">
+</div>
+
+{% block content %}
+{% if user.is_authenticated %}
+  Hi {{ user.username }}!
+  <p><a href="{% url 'logout' %}">logout</a></p>
+{% else %}
+  <p>You are not logged in</p>
+  <a href="{% url 'login' %}">login</a>
+{% endif %}
+{% endblock %}
+
+<form action="/polls/observe/">
+<input type="submit" value="New Observation" />
+</form>
+
+    <div id="map">
+
+    </div>
+
+<script type="text/javascript">
+
+var map = L.map('map').setView([46.7833, 6.65], 14);
+        //var marker = L.marker([46.7833, 6.65]).addTo(map);
+      mapLink =
+            '<a href="http://openstreetmap.org">OpenStreetMap</a>';
+        L.tileLayer(
+            'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; ' + mapLink + ' Contributors',
+            maxZoom: 18,
+            }).addTo(map);
+
+</script>
+
+
+
+</body>
+</html>
