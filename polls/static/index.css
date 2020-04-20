@@ -1,11 +1,12 @@
-body {
-    padding: 0;
-    margin: 0;
-}
 
-#map {
+body #map {
     height: 100%;
     width: 100%;
+}
+.addButton{
+  position: absolute;
+  left: 55%;
+  top: 15%;
 }
 
 .brandsize {
@@ -17,4 +18,10 @@ body {
 }
 .btn-margin-right {
     margin-right: 2px;
+}
+
+@media screen and (min-width: 850px) {
+  .addButton{
+    left:85%;
+  }
 }

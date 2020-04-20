@@ -22,7 +22,8 @@
   <!--  <script type="text/javascript" src="/static/js/index.js"></script>-->
 
 </head>
-<style media="screen">
+<style>
+
 .btn-margin-left {
     margin-left: 2px;
 }
@@ -49,10 +50,6 @@
 
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 
-          <!-- add observation button to the navbar -->
-          <form class="form-inline my-2 my-lg-0" action="/polls/observe/">
-            <button  class="btn btn-success btn-margin-right" type="submit">Add observation</button>
-          </form>
           <form class="form-inline my-2 my-lg-0" action="/polls/allObs/">
             <button  class="btn btn-info btn-margin-right btn-margin-left" type="submit">All observations</button>
           </form>
@@ -90,36 +87,18 @@
                         </li>
                           <li class="nav-item"><a class="nav-link" href="{% url 'polls:signup' %}">signup</a></li>
                         </ul>
-
-
-
                       {% endif %}
                     {% endblock %}
                   </div>
-
         </div>
   </nav>
 
-
-
-  <!-- {% for point in points %}
-    <h1>{{ point.geometry }}</h1>
-
-  {% endfor %} -->
-
-
-  <!--
-  <div id="responsive">
-    <img src="{% static 'images/bioSen.PNG' %}" alt="">
-  </div>-->
-
-<!-- user loggin, add it to the navbar -->
-<!--  -->
-
-
-    <div id="map">
-
-    </div>
+<div id="map"></div>
+<div class="addButton">
+  <form method="get" action="/polls/ftest/">
+    <button class="btn btn-danger" type="submit">Add observation</button>
+  </form>
+</div>
 
 <script type="text/javascript">
 
