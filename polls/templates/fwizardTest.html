@@ -47,6 +47,7 @@
     <script type="text/javascript" src="https://sdk.clarifai.com/js/clarifai-latest.js"></script>
     <script type="text/javascript" src="{% static 'keys.js' %}"></script>
     <script type="text/javascript" src="{% static 'predict.js' %}"></script>
+    <script type="text/javascript" src="{% static 'timeValidation.js' %}"></script>
     <script>
     try {
       var app = new Clarifai.App({
@@ -104,6 +105,9 @@
 
         <div class="container-fluid btn2">
           <div id="div1">
+            <div style="font-size:0.72em;" class="tab font-weight-bold p-2 mb-1 bg-light text-dark">
+              Insert your observation point!
+            </div>
             <div class="tab" id="observation_type">
               <select id="species_type" class="species_form form-control selectpicker" name="obs_type">
                   <option value="" selected disabled hidden>Select species type</option>
@@ -120,8 +124,9 @@
               <div class="tab">
                 <input class="observation_form" name="description" placeholder="Enter your description">
               </div>
-              <div class="tab">
-                <div style="padding: 10px;">{{ observation_form.date }}</div>
+              <div id="obsTime" class="tab">
+                <input id="datepicker" type="date" name="date" class="observation_form">
+
               </div>
               <div class="tab">
                 <input id="filename" type="file" class="btnImage observation_form" name="photo"/>
@@ -139,6 +144,7 @@
 
     <!-- Circles which indicates the steps of the form: -->
     <div>
+      <span class="step"></span>
       <span class="step"></span>
       <span class="step"></span>
       <span class="step"></span>
@@ -282,7 +288,7 @@ function fixStepIndicator(n) {
 
 <!-- invalid photo warning -->
 
-<script type="text/javascript">
+<!-- <script type="text/javascript">
 
   $(document).ready(function() {
     $(function() {
@@ -312,7 +318,7 @@ function fixStepIndicator(n) {
     <p>Please make sure you have selected the right species type</p>
   </div>
 {% endif %}
-</script>
+</script> -->
 
 <!-- <script type="text/javascript">
 const app = new Clarifai.App({

@@ -7,6 +7,7 @@ from geoposition.fields import GeopositionField
 from django.contrib.auth.models import AbstractUser
 from django.contrib.auth import get_user_model
 from django.conf import settings
+import datetime
 
 
 
@@ -35,7 +36,7 @@ class Observation(models.Model):
     poi = models.ForeignKey(POI, on_delete=models.CASCADE, verbose_name="POI",)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE,)
     description = models.CharField(max_length=255, default='SOME STRING',)
-    date = models.DateField(verbose_name="Date")
+    date = models.DateField(verbose_name="Date", default=datetime.date.today)
     photo = models.ImageField(upload_to='media', default='no image')
 
 

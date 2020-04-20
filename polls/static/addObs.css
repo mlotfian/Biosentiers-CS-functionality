@@ -30,6 +30,7 @@
   display: none;
 }
 
+
   .next {
       position: absolute;
       left: 80%;
@@ -51,18 +52,6 @@ input.invalid {
 background-color: #ffdddd;
 }
 
-/* Hide all steps by default: */
-
-
-/* button {
-background-color: #4CAF50;
-color: #ffffff;
-border: none;
-padding: 10px 20px;
-font-size: 10px;
-font-family: Raleway;
-cursor: pointer;
-} */
 
 button:hover {
 opacity: 0.8;
@@ -113,5 +102,8 @@ opacity: 0.8;
 @media screen and (min-width: 700px){
   .btnImage{
     font-size: 0.9em;
+  }
+  .firstTab {
+    font-size:0.9;
   }
 }
