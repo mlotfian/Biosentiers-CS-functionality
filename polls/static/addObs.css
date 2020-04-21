@@ -59,7 +59,7 @@ opacity: 0.8;
 
 
 
-.btnImage {
+/* .btnImage {
   border: 2px solid gray;
   color: gray;
   background-color: white;
@@ -68,15 +68,17 @@ opacity: 0.8;
   font-size: 9px;
   font-weight: bold;
   width: 100%;
-}
-
-/* .upload-btn-wrapper input[type=file] {
-  font-size: 80px;
-  position: absolute;
-  left: 0;
-  top: 0;
-  opacity: 0;
 } */
+
+.btnImage{
+  border: 1px solid #c4c4c4;
+  border-radius: 5px;
+  background-color: #fff;
+  padding: 3px 5px;
+  box-shadow: inset 0 3px 6px rgba(0,0,0,0.1);
+  font-size: 13px;
+  width: 100%;
+}
 
 .formDj {
   margin: 0;
@@ -107,13 +109,6 @@ opacity: 0.8;
   opacity: 0;
 }
 
-#datepicker {
-  border: 1px solid #c4c4c4;
-  border-radius: 5px;
-  background-color: #fff;
-  padding: 3px 5px;
-  box-shadow: inset 0 3px 6px rgba(0,0,0,0.1);
-}
 
 /* add media queries */
 @media screen and (min-width: 700px){
