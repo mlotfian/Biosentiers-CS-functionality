@@ -8,6 +8,10 @@
     <meta name="viewport" content="user-scalable=no, initial-scale=1, width=device-width">
     <meta charset="utf-8" />
     <title>Map Page</title>
+
+    <!-- remove favicon error -->
+    <link rel="shortcut icon" href="#" />
+
     <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7/leaflet.css" />
     <link rel="stylesheet" href="{% static 'index.css' %}">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
@@ -27,10 +31,10 @@
     <script src="https://unpkg.com/leaflet@1.1.0/dist/leaflet.js"
     integrity="sha512-mNqn2Wg7tSToJhvHcqfzLMU6J4mkOImSPTxVZAdo+lcPlk+GhZmYgACEe0x35K7YzW1zJ7XyJV/TT1MrdXvMcA==" crossorigin=""></script>
 
-   <!-- marker clusetr -->
-   <script src='https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-markercluster/v0.4.0/leaflet.markercluster.js'></script>
-<link href='https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-markercluster/v0.4.0/MarkerCluster.css' rel='stylesheet' />
-<link href='https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-markercluster/v0.4.0/MarkerCluster.Default.css' rel='stylesheet' />
+    <!-- marker clusetr -->
+    <link rel="stylesheet" href="{% static 'MarkerCluster.css' %}" />
+    <link rel="stylesheet" href="{% static 'MarkerCluster.Default.css' %}" />
+    <script src="{% static 'leaflet.markercluster-src.js' %}"></script>
 
 
    <style>
@@ -84,20 +88,22 @@ img {
     <script>
 
 
-        var map = L.map('map').setView([46.7833,6.65],12);
+        var map = L.map('map').setView([46.7833,6.65],10);
 
 
         L.tileLayer('https://api.maptiler.com/maps/streets/{z}/{x}/{y}.png?key=9GKOA9jJ3jCIWFUd8k00', {attribution: '<a href="https://www.maptiler.com/copyright/" target="_blank">&copy; MapTiler</a> <a href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a>',}).addTo(map);
-
+        var markers = new L.MarkerClusterGroup();
         const jsonFeatures = {{ res | safe }}
-        L.geoJSON(jsonFeatures, {
+        var geoJsonLayer = L.geoJSON(jsonFeatures, {
           onEachFeature: function (feature, layer) {
             layer.bindPopup('<p><strong>Species Type: </strong>'+feature.properties.obs_type+'</p><p><strong>Species Name: </strong>'
             + feature.properties.name + '</p><p><strong>Observation Date: </strong>'
             + feature.properties.date + '</p><img src=/media/'
             + feature.properties.photo + '/>', {maxWidth: "auto"});
           }
-        }).addTo(map);
+        });
+        markers.addLayer(geoJsonLayer);
+        map.addLayer(markers);
 
         ///////////////////////////////////
 

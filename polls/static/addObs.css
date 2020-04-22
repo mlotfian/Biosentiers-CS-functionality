@@ -14,8 +14,8 @@
      z-index: 0;
    }
 
-
-  .btn2 {
+/* black bar covering the input elements */
+  .blackBar {
     width:100%;
     height: 15%;
     background-color: rgba(0,0,0,0.6);
@@ -58,18 +58,6 @@ opacity: 0.8;
 }
 
 
-
-/* .btnImage {
-  border: 2px solid gray;
-  color: gray;
-  background-color: white;
-  padding: 6px 15px;
-  border-radius: 8px;
-  font-size: 9px;
-  font-weight: bold;
-  width: 100%;
-} */
-
 .btnImage{
   border: 1px solid #c4c4c4;
   border-radius: 5px;
@@ -78,6 +66,16 @@ opacity: 0.8;
   box-shadow: inset 0 3px 6px rgba(0,0,0,0.1);
   font-size: 13px;
   width: 100%;
+}
+.InsertPoint{
+  border: 1px solid #c4c4c4;
+  border-radius: 5px;
+  background-color: #fff;
+  padding: 3px 3px;
+  box-shadow: inset 0 3px 6px rgba(0,0,0,0.1);
+  font-size: 13px;
+  width: 50%;
+  text-align: center;
 }
 
 .formDj {
@@ -94,9 +92,6 @@ opacity: 0.8;
   display:none;
 }
 
-/* .obsDate > input {
-  bottom: 100% !important;
-} */
 
 /* date input style */
 [type="date"] {
@@ -112,7 +107,7 @@ opacity: 0.8;
 
 /* add media queries */
 @media screen and (min-width: 700px){
-  .btn2 {
+  .blackBar {
       height: 10%;
   }
   .btnImage{
@@ -120,5 +115,13 @@ opacity: 0.8;
   }
   .firstTab {
     font-size:0.9;
+  }
+
+}
+
+@media screen and (min-width: 950px) {
+  .InsertPoint{
+    width: 30%;
+    font-size: 0.9em;
   }
 }
