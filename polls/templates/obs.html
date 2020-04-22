@@ -65,13 +65,12 @@ background-color: #000;
 background-color: #4CAF50;
 }
 .popupImage {
-    max-width: 20%;
-    max-height: 20%;
+    max-height: 150px;
 }
-img {
-  max-width: 150px;
-  max-height: 200px;
-}
+/* img {
+  max-width: 50px;
+  max-height: 180px;
+} */
 
  </style>
 </head>
@@ -99,7 +98,7 @@ img {
             layer.bindPopup('<p><strong>Species Type: </strong>'+feature.properties.obs_type+'</p><p><strong>Species Name: </strong>'
             + feature.properties.name + '</p><p><strong>Observation Date: </strong>'
             + feature.properties.date + '</p><img src=/media/'
-            + feature.properties.photo + '/>', {maxWidth: "auto"});
+            + feature.properties.photo + ' class=popupImage ' + '/>', {maxWidth: "auto"});
           }
         });
         markers.addLayer(geoJsonLayer);

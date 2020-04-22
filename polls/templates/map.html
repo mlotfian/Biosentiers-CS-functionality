@@ -62,9 +62,8 @@
 .active {
   background-color: #4CAF50;
 }
-img {
-  max-width: 150px;
-  max-height: 200px;
+.popupImage {
+    max-height: 150px;
 }
 
     </style>
@@ -91,7 +90,7 @@ img {
             +feature.properties.obs_type+'</p><p><strong>Species Name: </strong>'
             + feature.properties.name + '</p><p><strong>Observation Date: </strong>'
             + feature.properties.date + '</p><img src=/media/'
-            + feature.properties.photo + '/>', {maxWidth: "auto"});
+            + feature.properties.photo + ' class=popupImage ' + '/>', {maxWidth: "auto"});
           }
         });
 
