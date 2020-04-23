@@ -1,6 +1,9 @@
 
 function predict_click() {
-
+  document.getElementById('submitButton').disabled = true;
+  setTimeout(function(){
+       document.getElementById("submitButton").disabled = false;
+     }, 4000);
   var file = document.querySelector("input[type=file]").files[0];
   var reader = new FileReader();
 
@@ -8,6 +11,7 @@ function predict_click() {
   reader.addEventListener("load", function () {
     var localBase64 = reader.result.split("base64,")[1];
     doPredict({ base64: localBase64 });
+
   }, false);
 
   if (file) {
@@ -23,6 +27,7 @@ function predict_click() {
     value - { base64 : base64Value }
 */
 function doPredict(value) {
+  //document.getElementById('submitButton').disabled = true;
   app.models.predict(Clarifai.GENERAL_MODEL, value).then(
     function(response) {
       var concepts = response['outputs'][0]['data']['concepts'];
