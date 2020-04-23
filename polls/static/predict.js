@@ -36,9 +36,14 @@ function doPredict(value) {
       const evaluationResult = concepts.filter(
         concept => concept.name === userSelection && concept.value >= 0.9);
       if (evaluationResult.length == 0) {
-        alert(`Our image recognition model says that a ${userSelection} is not present in this photo.
-        Could you please make sure the observation type is selected correctly?
-        Yes, of course we trust you more than the machine :)`);
+        sweetAlert({
+          title: "Please confirm",
+          text: `Our image recognition model says that a ${userSelection} is not present in this photo.
+          Could you please make sure the observation type is selected correctly?
+          Yes, of course we trust you more than the machine :)`,
+          icon: "warning",
+          dangerMode: true,
+          })
       }
       console.log(evaluationResult);
     },

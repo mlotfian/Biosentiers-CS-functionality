@@ -28,9 +28,14 @@ $(function() {
             // const startDate = filterName.map(pS => pS.periodStart);
             // const endDate = filterName.map(pE => pE.periodEnd);
           if(month<startDate || month>endDate){
-            alert(`${sName} seems to be visible in the period of ${months[startDate]} to ${months[endDate]}.
-          Could you please make sure that the species name or the date is inserted correctly?
-          You can insert the information in any case, rare cases can happen!`)
+          sweetAlert({
+            title: "Please confirm",
+            text: `${sName} seems to be visible in the period of ${months[startDate]} to ${months[endDate]}.
+            Could you please make sure that the species name or the date is inserted correctly?
+            You can insert the information in any case, rare cases can happen!`,
+            icon: "warning",
+            dangerMode: true,
+            })
           }
           else {
             console.log("Input date is within the visibilty period");
