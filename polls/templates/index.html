@@ -101,11 +101,24 @@
     <button class="btn btn-danger" type="submit">Add observation</button>
   </form>
     {% else %}
-    <button type="button" class="btn btn-danger" data-toggle="tooltip" data-placement="top" title="Please login first">Add observation</button>
+    <button id="loginFirst" type="button" class="btn btn-danger">Add observation</button>
     {% endif %}
 
 </div>
 
+<script type="text/javascript">
+let test = document.getElementById("loginFirst");
+
+// This handler will be executed only once when the cursor
+// moves over the unordered list
+test.addEventListener("mouseenter", function( event ) {
+// highlight the mouseenter target
+event.target.innerHTML = "Please login first";
+setTimeout(function() {
+    event.target.innerHTML = "Add observation";
+  }, 1000);
+},false);
+</script>
 
 <script type="text/javascript">
 

@@ -1,9 +1,6 @@
-/*
-  Purpose: Pass information to other helper functions after a user clicks 'Predict'
-  Args:
-    value - Actual filename
-*/
+
 function predict_click() {
+
   var file = document.querySelector("input[type=file]").files[0];
   var reader = new FileReader();
 
@@ -16,7 +13,9 @@ function predict_click() {
   if (file) {
     reader.readAsDataURL(file);
   }
+
 }
+
 
 /*
   Purpose: Does a v2 prediction based on user input

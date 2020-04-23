@@ -4,6 +4,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta charset="utf-8" />
 
+
   {% load staticfiles %}
   {% load static %}
 
@@ -16,16 +17,16 @@
   {{ observation_form.media }}
   {{ poi_form.media }}
 
-
-
+  <!-- remove favicon error -->
+  <link rel="shortcut icon" href="#" />
 
   <link rel="stylesheet" href="{% static 'index.css' %}">
   <link rel="stylesheet" href="{% static 'addObs.css' %}">
   <!-- bootstrap 4 -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
   integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
-  integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+  <!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+  integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script> -->
 
 
   <!-- fontawesome -->
@@ -185,7 +186,7 @@
 </script>
 
 <!-- leaflet map -->
-<script type="text/javascript">
+<!-- <script type="text/javascript">
 
 YourGeometryField = L.GeometryField.extend({
 addTo: function (map) {
@@ -194,7 +195,7 @@ console.log(this);
 },
 
 });
-</script>
+</script> -->
 
 
 <!-- adding multistep form -->
@@ -279,63 +280,9 @@ function fixStepIndicator(n) {
 </script>
 
 
-<!-- <script type="text/javascript">
-  function changeUpload(tag) {
-    var uploadImg = document.getElementById(tag);
-    uploadImg.innerHTML = "Image uploaded";
-  }
-
-</script> -->
-
-
-<!-- invalid photo warning -->
-
-<!-- <script type="text/javascript">
-
-  $(document).ready(function() {
-    $(function() {
-      $( "#invalidPhoto" ).dialog({
-        modal: true,
-        closeOnEscape: false,
-        dialogClass: "no-close",
-        resizable: false,
-        draggable: false,
-        width: 600,
-        buttons: [
-          {
-            text: "OK",
-            click: function() {
-              $( this ).dialog( "close" );
-            }
-          }
-        ]
-      });
-    });
-  }
-);
-
-// Invalid photo
-{% if invalidPhoto %}
-  <div id="invalidPhoto" title="Invalid Photo">
-    <p>Please make sure you have selected the right species type</p>
-  </div>
-{% endif %}
-</script> -->
-
-<!-- <script type="text/javascript">
-const app = new Clarifai.App({
-apiKey: '366cc97df9c14f50b0ec95e98724b3e8'
-});
-function validatePhoto(photo, species_type){
-  app.models.initModel({id: Clarifai.GENERAL_MODEL, version: "aa7f35c01e0642fda5cf400f543e7c40"})
-      .then(generalModel => {
-        return generalModel.predict(photo);
-      })
-      .then(response => {
-        var concepts = response['outputs'][0]['data']['concepts']
-      })}
-</script> -->
-
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 
   </body>
 </html>
