@@ -47,18 +47,3 @@ class CustomUser(AbstractUser):
 
     def __str__(self):
         return self.username
-
-
-
-
-
-    #date = models.DateField(verbose_name="Date")
-
-
-
-
-
-
-
-
-# Create your models here.

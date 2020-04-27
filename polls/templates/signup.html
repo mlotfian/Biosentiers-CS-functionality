@@ -31,7 +31,7 @@
         <div class="form-group">
       <div class="input-group">
         <span class="input-group-addon"><i class="fa fa-user"></i></span>
-        <input type="text" maxlength="150" autofocus required id="id_username" class="form-control form_class" name="username" placeholder="Username" required="required">
+        <input type="text" maxlength="150" pattern="[A-Za-z0-9_@.+-]+" title="150 characters or fewer. Letters, digits and @/./+/-/_ only." autofocus required id="id_username" class="form-control form_class" name="username" placeholder="Username" required="required">
       </div>
 
         </div>
@@ -50,10 +50,7 @@
         </div>
     <div class="form-group">
          <div class="input-group">
-        <span class="input-group-addon">
-          <i class="fa fa-lock"></i>
-          <i class="fa fa-check"></i>
-        </span>
+        <span class="input-group-addon"><i class="fa fa-lock"></i><i class="fa fa-check"></i></span>
         <input type="password" id="id_password2" class="form-control form_class" name="password2" placeholder="Confirm Password" required="required">
          </div>
         </div>
@@ -66,5 +63,55 @@
   </div>
   {% endblock %}
   </main>
+
+<!-- check if username already exists -->
+<script type="text/javascript">
+
+var userName = document.getElementById('id_username');
+
+function validateName(){
+
+  $.getJSON('{% url "polls:userInfo" %}', function(data) {
+    let myUsers = [];
+    data.forEach(function(obj) {
+
+      myUsers.push(obj.fields.username);
+      //console.log(myUsers);
+    });
+
+    if(myUsers.indexOf(userName.value) !== -1){
+        userName.setCustomValidity("Username already Exists. Please choose another one");
+    }
+    else {
+      userName.setCustomValidity('');
+    }
+  });
+}
+
+userName.onchange = validateName;
+
+</script>
+
+
+<!-- check if password matches -->
+<script type="text/javascript">
+var password = document.getElementById("id_password1")
+  , confirm_password = document.getElementById("id_password2");
+
+function validatePassword(){
+  if(password.value != confirm_password.value) {
+    confirm_password.setCustomValidity("Passwords Don't Match");
+  } else {
+    confirm_password.setCustomValidity('');
+  }
+}
+
+password.onchange = validatePassword;
+confirm_password.onkeyup = validatePassword;
+
+</script>
+
+
+
 </body>
 </html>

@@ -14,7 +14,7 @@ body, html {
         border-radius: 3px;
     }
 	.signup-form {
-		width: 390px;
+		width: 85%;
 		margin: 0 auto;
 		padding: 30px 0;
 	}
@@ -90,3 +90,10 @@ body, html {
 		font-size: 7px;
 		position: absolute;
 	}
+
+
+  @media screen and (min-width:800px) {
+    .signup-form{
+      width: 30%;
+    }
+  }
