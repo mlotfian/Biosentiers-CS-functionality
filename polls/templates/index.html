@@ -96,28 +96,41 @@
 <div id="map"></div>
 <div class="addButton">
 
-    {% if user.is_authenticated %}
+  <form id="loginForm" method="get" action="/polls/ftest/">
+    <button id="loginFirst" class="btn btn-danger" type="submit">Add observation</button>
+  </form>
+
+    <!-- {% if user.is_authenticated %}
   <form method="get" action="/polls/ftest/">
     <button class="btn btn-danger" type="submit">Add observation</button>
   </form>
     {% else %}
     <button id="loginFirst" type="button" class="btn btn-danger">Add observation</button>
-    {% endif %}
+    {% endif %} -->
 
 </div>
 
 <script type="text/javascript">
 let test = document.getElementById("loginFirst");
+let logForm = document.getElementById("loginForm");
 
-// This handler will be executed only once when the cursor
-// moves over the unordered list
-test.addEventListener("mouseenter", function( event ) {
+{% if user.is_authenticated %}
+
+    console.log("already logged in");
+
+{% else %}
+
+  logForm.action = "";
+  test.addEventListener("mouseenter", function( event ) {
 // highlight the mouseenter target
-event.target.innerHTML = "Please login first";
-setTimeout(function() {
-    event.target.innerHTML = "Add observation";
-  }, 1000);
-},false);
+  event.target.innerHTML = "Please login first";
+  setTimeout(function() {
+      event.target.innerHTML = "Add observation";
+    }, 1000);
+  },false);
+  
+{% endif %}
+
 </script>
 
 <script type="text/javascript">

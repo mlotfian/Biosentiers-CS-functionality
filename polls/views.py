@@ -69,18 +69,11 @@ ON c.id = b.poi_id"""
 
     return render(request ,'map.html', {'points_json':points_json})
 
-######
+### getting usernames to validate signup form ###
 def userTest(request):
     usersData=serializers.serialize('json',CustomUser.objects.all())
 
-    testUser = json.loads(usersData)
-
-    # context['userNames'] = userNames
-    print(type(testUser))
-    # return render(request, 'signup.html', {'testUser': testUser})
     return HttpResponse(usersData,content_type='json')
-
-
 
 # filter observation based on logged in user
 
