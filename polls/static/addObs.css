@@ -3,6 +3,22 @@
    width: 100%;
    }
 
+   .navbar a {
+     float: left;
+     padding: 10px;
+     color: white;
+     text-decoration: none;
+     font-size: 17px;
+   }
+
+   .navbar a:hover {
+     background-color: rgba(0,0,0);;
+   }
+
+   .active {
+     background-color: #4CAF50;
+   }
+
    .form-wrapper{
        position: relative;
        width: 100%;
@@ -83,6 +99,8 @@ opacity: 0.8;
 }
 
 
+
+
 /*Invert dropdown to dropup*/
 .awesomplete > ul {
   bottom: 100% !important;
@@ -94,7 +112,7 @@ opacity: 0.8;
 
 
 /* date input style */
-[type="date"] {
+/* [type="date"] {
   background:#fff url(https://cdn1.iconfinder.com/data/icons/cc_mono_icon_set/blacks/16x16/calendar_2.png)  97% 50% no-repeat ;
 }
 [type="date"]::-webkit-inner-spin-button {
@@ -102,7 +120,7 @@ opacity: 0.8;
 }
 [type="date"]::-webkit-calendar-picker-indicator {
   opacity: 0;
-}
+} */
 
 
 /* add media queries */
