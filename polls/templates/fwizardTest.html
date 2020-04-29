@@ -63,7 +63,10 @@
 
 <script src="http://cdn.kendostatic.com/2014.3.1411/js/jquery.min.js"></script>
 <script src="http://cdn.kendostatic.com/2014.3.1411/js/kendo.all.min.js"></script>
-<!--  -->
+
+<!-- select2 -->
+<link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
 
     <script>
     try {
@@ -127,8 +130,8 @@
               Insert your observation point!
             </div>
             <div class="tab obsType" id="observation_type">
-              <select id="species_type" class="species_form form-control selectpicker" name="obs_type">
-                  <option value="" selected disabled hidden>Select species type</option>
+              <select id="species_type" class="species_form selectpicker browser-default" name="obs_type">
+                  <option value="" disabled selected>Select Species Type</option>
                   <option value="tree">Tree</option>
                   <option value="bird">Bird</option>
                   <option value="butterfly">Butterfly</option>
@@ -173,7 +176,11 @@
 </form>
 </div>
 
-
+<script type="text/javascript">
+$(document).ready(function() {
+  $('.selectpicker').select2({ width: '180px' });
+});
+</script>
 <script type="text/javascript">
 
 $(document).ready(function() {
