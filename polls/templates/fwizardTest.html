@@ -99,6 +99,22 @@
       };
     }
   </script>
+  <style>
+  .navbar a {
+    float: left;
+    padding: 10px;
+    color: white;
+    text-decoration: none;
+    font-size: 17px;
+  }
+
+  .navbar a:hover {
+    background-color: #000;
+  }
+  .active {
+    background-color: #4CAF50;
+  }
+  </style>
 
   </head>
   <body>
@@ -116,13 +132,10 @@
   {% csrf_token %}
 
         <div id="PointField" class="map-wrapper">
-          <!-- One "tab" for each step in the form: -->
 
           {{ poi_form.geometry }}
 
         </div>
-
-
 
         <div class="container-fluid blackBar">
           <div id="div1">
@@ -130,7 +143,7 @@
               Insert your observation point!
             </div>
             <div class="tab obsType" id="observation_type">
-              <select id="species_type" class="species_form selectpicker browser-default" name="obs_type">
+              <select id="species_type" required class="species_form selectpicker browser-default" name="obs_type">
                   <option value="" disabled selected>Select Species Type</option>
                   <option value="tree">Tree</option>
                   <option value="bird">Bird</option>
@@ -223,32 +236,6 @@ $(document).ready(function() {
     });
 </script>
 
-<!-- leaflet map -->
-
-<!-- <script type="text/javascript">
-
-navigator.geolocation.getCurrentPosition(function(location) {
-
-  var latlng = new L.LatLng(location.coords.latitude, location.coords.longitude);
-console.log("test");
-  var mymap = L.map('PointField').setView(latlng, 14);
-
-
-});
-</script> -->
-<!-- <script type="text/javascript">
-
-YourGeometryField = L.GeometryField.extend({
-addTo: function (map) {
-L.GeometryField.prototype.addTo.call(this, map);
-console.log(this);
-},
-
-});
-</script> -->
-
-
-<!-- adding multistep form -->
 <script>
 var currentTab = 0; // Current tab is set to be the first tab (0)
 showTab(currentTab); // Display the current tab
@@ -295,11 +282,14 @@ function nextPrev(n) {
   showTab(currentTab);
 }
 
+// select tag validation
+
+
 function validateForm() {
   // This function deals with validation of the form fields
   var x, y, i, valid = true;
   x = document.getElementsByClassName("tab");
-  y = x[currentTab].getElementsByTagName("input");
+  y = x[currentTab].querySelectorAll("select, input");
   // A loop that checks every input field in the current tab:
   for (i = 0; i < y.length; i++) {
     // If a field is empty...
