@@ -124,51 +124,8 @@ def detail(request):
 
 
 
-def observe(request):
-    context = {
-    'observation_form': ObservationForm(),
-    'species_form': SpeciesForm(),
-    'poi_form': POIForm()
-    }
-
-
-    if request.method == 'POST':
-        obs_type = request.POST['obs_type']
-        geometry = request.POST['geometry']
-        photo = request.FILES['photo']
-
-        species_form = SpeciesForm(request.POST, request.FILES)
-        poi_form = POIForm(request.POST)
-        observation_form = ObservationForm(request.POST, request.FILES)
-
-        #checking image with clarifai API>>> move this to the frontend
-
-        if observation_form.is_valid() and species_form.is_valid() and poi_form.is_valid():
-            if identifyPhoto(photo, obs_type):
-                obs = observation_form.save(commit=False)
-                obs.user = CustomUser.objects.get(username=request.user)
-                obs.poi = poi_form.save()
-                obs.species = species_form.save()
-                obs.save()
-
-                return HttpResponseRedirect(reverse('index'))
-            else:
-                observation_form = ObservationForm()
-                species_form = SpeciesForm()
-                poi_form = POIForm()
-
-                return render(request, 'name.html', {'form': context, 'invalidPhoto': True})
-    else:
-        observation_form = ObservationForm()
-        species_form = SpeciesForm()
-        poi_form = POIForm()
-
-
-    return render(request, 'name.html', context)
-
-
 ##########test###################
-def test(request):
+def observe(request):
     context = {
     'observation_form': ObservationForm(),
     'species_form': SpeciesForm(),
@@ -201,14 +158,14 @@ def test(request):
             species_form = SpeciesForm()
             poi_form = POIForm()
 
-            return render(request, 'fwizardTest.html', {'form': context, 'invalidPhoto': True})
+            return render(request, 'addObservation.html', {'form': context, 'invalidPhoto': True})
     else:
         observation_form = ObservationForm()
         species_form = SpeciesForm()
         poi_form = POIForm()
 
 
-    return render(request, 'fwizardTest.html', context)
+    return render(request, 'addObservation.html', context)
 ######################################################################################################
 
 # def identifyPhoto(photo, obs_type):

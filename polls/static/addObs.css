@@ -50,11 +50,8 @@
 /* Mark input boxes that gets an error on validation: */
 
 
-input.invalid {
-background-color: #ffdddd;
-}
 
-
+input.invalid , select.invalid { background-color: #ffdddd !important; }
 
 button:hover {
 opacity: 0.8;
