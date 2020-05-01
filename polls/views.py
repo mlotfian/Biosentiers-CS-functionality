@@ -67,7 +67,7 @@ ON c.id = b.poi_id"""
 
 
 
-    return render(request ,'map.html', {'points_json':points_json})
+    return render(request ,'allObservations.html', {'points_json':points_json})
 
 ### getting usernames to validate signup form ###
 def userTest(request):
@@ -97,7 +97,7 @@ def my_obs(request):
                 feature["properties"]["photo"] = str(obs.photo).split(' ')[0]
 
 
-    return render(request, 'obs.html', {'res': res})
+    return render(request, 'myObservations.html', {'res': res})
 
 
 
