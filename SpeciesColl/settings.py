@@ -162,7 +162,10 @@ LEAFLET_CONFIG = {
   'DEFAULT_CENTER': (46.7833,6.65),
   'DEFAULT_ZOOM': 12,
   'MIN_ZOOM': 1,
-  'MAX_ZOOM': 20,
+  'MAX_ZOOM': 30,
   'map_height': '100%',
   'map_width': '100%',
+  'ATTRIBUTION_PREFIX': 'Powered by django-leaflet',
+  'TILES':[('OpenStreenMap', 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{'attribution': '&copy; Contributors'}),
+  ('Satellite', 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {'attribution': '&copy; Contributors'})],
 }
