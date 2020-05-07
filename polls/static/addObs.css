@@ -3,6 +3,9 @@
    width: 100%;
    }
 
+   #id_geometry-map { width: 100%; height: 91%; }
+   #id_geometry { display: none; }
+
    .form-wrapper{
        position: relative;
        width: 100%;

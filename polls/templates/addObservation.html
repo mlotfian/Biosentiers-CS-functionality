@@ -21,6 +21,7 @@
 
   <link rel="stylesheet" href="{% static 'index.css' %}">
   <link rel="stylesheet" href="{% static 'addObs.css' %}">
+  <script src="{% static 'geometry.js' %}" type="text/javascript"></script>
   <!-- bootstrap 4 -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
   integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
@@ -132,16 +133,15 @@
   {% csrf_token %}
 
         <div id="PointField" class="map-wrapper">
-
-          {{ poi_form.geometry }}
-
+          <div id="id_geometry-map" class="leaflet-container-default"></div>
+          <textarea id="id_geometry" class="required" cols="150" rows="10" name="geometry"></textarea>
         </div>
 
         <div class="container-fluid blackBar">
           <div id="div1">
-            <div class="tab InsertPoint">
-              Insert your observation point!
-            </div>
+
+            <div class="tab InsertPoint">Insert observation point:</div>
+
             <div class="tab obsType" id="observation_type">
               <select id="species_type" required class="species_form selectpicker browser-default" name="obs_type">
                   <option value="" disabled selected>Select Species Type</option>
@@ -155,9 +155,11 @@
               <div class="tab">
                 <input id="species" class="species_form form-control" name="name" placeholder="Enter species name">
               </div>
+
               <div class="tab">
                 <input class="observation_form form-control" name="description" placeholder="Enter your description">
               </div>
+
               <div id="obsTime" class="tab">
                 <input value="mm/dd/yyyy" id="datepicker" name="date" class="observation_form">
 

@@ -33,7 +33,7 @@ $(function() {
             title: "Please confirm",
             text: `${sName} seems to be visible in the period of ${months[startDate]} to ${months[endDate]}.
             Could you please make sure that the species name or the date is inserted correctly?
-            You can insert the information in any case, rare cases can happen!`,
+            You can still continute with submiting your observation, rare cases can happen!`,
             icon: "warning",
             dangerMode: true,
             })
