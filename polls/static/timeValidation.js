@@ -13,7 +13,7 @@ $(function() {
 
       // call biosentier API
       var settings = {
-        "url": "https://biosentiers.heig-vd.ch/api/species?only=periodStart&only=periodEnd&only=commonName.fr&theme=bird",
+        "url": "https://biosentiers.heig-vd.ch/api/species?only=periodStart&only=periodEnd&only=commonName.fr",
         "method": "GET",
         "timeout": 0,
       };
