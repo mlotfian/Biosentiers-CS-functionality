@@ -3,6 +3,7 @@ const months = {'1':'January', '2':'February', '3':'March','4':'April',
 '11':'November','12':'December'};
 
 
+
 $(function() {
     $("#datepicker").on("change",function(){
 
@@ -10,6 +11,7 @@ $(function() {
         var selected = $(this).val();
         var month = parseInt((selected.split('-')[0]),10)
         var sName = $('#species').val();
+
 
       // call biosentier API
       var settings = {
@@ -37,6 +39,8 @@ $(function() {
             icon: "warning",
             dangerMode: true,
             })
+            
+              document.getElementById("Flagtime").value = "true";
           }
           else {
             console.log("Input date is within the visibilty period");

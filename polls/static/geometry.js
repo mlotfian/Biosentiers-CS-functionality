@@ -46,8 +46,6 @@ function id_geometry_map_callback(map, options) {
             options = {djoptions: djoptions, initfunc: loadmap,
                        globals: false, callback: id_geometry_map_callback};
         navigator.geolocation.getCurrentPosition(success, error, option);
-
-
     }
 
 
