@@ -44,6 +44,8 @@ function doPredict(value) {
           icon: "warning",
           dangerMode: true,
           })
+
+          document.getElementById("Flagimage").value = "true";
       }
       console.log(evaluationResult);
     },

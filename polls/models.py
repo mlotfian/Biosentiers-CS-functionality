@@ -39,6 +39,7 @@ class Observation(models.Model):
     date = models.DateField(verbose_name="Date", default=datetime.date.today)
     photo = models.ImageField(upload_to='media', default='no image')
     Flagtime = models.BooleanField(default=False)
+    Flagimage = models.BooleanField(default=False)
 
 
 
