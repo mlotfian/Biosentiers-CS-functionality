@@ -5,6 +5,7 @@ geodjango_id_geometry.geom_type = 'Point';
 geodjango_id_geometry.srid = 4326;
 
 function id_geometry_map_callback(map, options) {
+    //document.getElementById('nextBtn').disabled = false;
     geodjango_id_geometry.store_class = L.FieldStore;
     (new L.GeometryField(geodjango_id_geometry)).addTo(map);
 };
