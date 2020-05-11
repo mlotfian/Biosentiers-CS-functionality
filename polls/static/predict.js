@@ -1,6 +1,6 @@
 
 function predict_click() {
-  document.getElementById('submitButton').disabled = true;
+  //document.getElementById('submitButton').disabled = true;
   setTimeout(function(){
        document.getElementById("submitButton").disabled = false;
      }, 4000);
