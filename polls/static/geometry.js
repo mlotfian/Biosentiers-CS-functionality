@@ -5,7 +5,6 @@ geodjango_id_geometry.geom_type = 'Point';
 geodjango_id_geometry.srid = 4326;
 
 function id_geometry_map_callback(map, options) {
-    //document.getElementById('nextBtn').disabled = false;
     geodjango_id_geometry.store_class = L.FieldStore;
     (new L.GeometryField(geodjango_id_geometry)).addTo(map);
 };
@@ -13,7 +12,7 @@ function id_geometry_map_callback(map, options) {
     var option = {
     enableHighAccuracy: true,
     timeout: 5000,
-    maximumAge: 10000
+    maximumAge: 600000
     };
 
     function success(pos) {
@@ -25,8 +24,6 @@ function id_geometry_map_callback(map, options) {
     console.log(`Latitude : ${crd.latitude}`);
     console.log(`Longitude: ${crd.longitude}`);
     console.log(`Accuracy: ${crd.accuracy} meters more or less.`);
-
-
     }
 
     function error(err) {
@@ -55,5 +52,6 @@ function id_geometry_map_callback(map, options) {
     if (loadevents.length === 0) loadmap();
     else if (window.addEventListener) for (var i=0; i<loadevents.length; i++) window.addEventListener(loadevents[i], loadmap, false);
     else if (window.jQuery) jQuery(window).on(loadevents.join(' '), loadmap);
+
 
 })();

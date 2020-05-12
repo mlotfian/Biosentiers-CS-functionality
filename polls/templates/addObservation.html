@@ -140,8 +140,11 @@
         <div class="container-fluid blackBar">
           <div id="div1">
 
-            <div class="tab InsertPoint">Insert observation point and click OK:
-              <button type="button" id="okButton" class="btn btn-primary" onclick="enableNextButton()">OK</button>
+            <div class="tab InsertPoint">
+              Click <i class="fas fa-map-marker-alt"></i> on the left side to add your observation point
+              <!-- <button type="button" id="okButton" class="btn btn-primary" onclick="enableNextButton()">
+                OK
+              </button> -->
             </div>
 
             <div class="tab obsType" id="observation_type">
@@ -196,11 +199,18 @@
 </form>
 </div>
 
-<script>
-        function enableNextButton() {
-            document.getElementById("nextBtn").disabled = false;
-        }
+<script type="text/javascript">
+const selectElement = document.querySelector('.leaflet-container-default');
+selectElement.addEventListener('click', (event) => {
+document.getElementById("nextBtn").disabled = false;
+});
 </script>
+
+<!-- <script>
+  function enableNextButton() {
+    document.getElementById("nextBtn").disabled = false;
+  }
+</script> -->
 
 <script type="text/javascript">
 $(document).ready(function() {
