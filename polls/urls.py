@@ -11,5 +11,6 @@ urlpatterns = [
     path('allObs/', views.all_obs, name='all observations'),
     path('userInfo/', views.userTest, name='userInfo'),
     path('myObs/', views.my_obs, name='my observations'),
+    path('leaderboard/', views.leaderboard, name='leaderboard'),
 
 ]

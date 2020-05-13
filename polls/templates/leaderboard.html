@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta charset="utf-8">
+
+    {% load staticfiles %}
+    {% load static %}
+    <!-- bootstrap 4 -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+    integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+    <!-- fontawesome -->
+    <script src="https://kit.fontawesome.com/0ab399aea4.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
+    integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+
+
+    <title></title>
+
+    <style>
+
+    .navbar a {
+      float: left;
+      padding: 10px;
+      color: white;
+      text-decoration: none;
+      font-size: 17px;
+    }
+
+    .navbar a:hover {
+      background-color: #000;
+    }
+    .active {
+      background-color: #4CAF50;
+    }
+    .brandsize {
+      height: 30px;
+      width: 100px;
+    }
+    table{
+      margin-top: 15px;
+    }
+    th {
+
+    color: white;
+}
+    body, html {
+        background: url('/static/images/Berberis_vulgaris_PP_01.JPG') no-repeat center center fixed;
+      -webkit-background-size: cover;
+      -moz-background-size: cover;
+      -o-background-size: cover;
+      background-size: cover;;
+        /* background-image: linear-gradient(rgb(104, 145, 162), rgb(12, 97, 33)); */
+
+    }
+    @media screen and (min-width: 850px) {
+      .addtbl{
+        width:60%;
+      }
+    }
+
+    </style>
+
+  </head>
+
+  <body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <span class="navbar-brand mb-0 h1">
+          <img class="brandsize" src="{% static 'images/bio.png' %}" alt="">
+        </span>
+        <a class="active" href="{% url 'index' %}"><i class="fa fa-fw fa-home"></i> Home</a>
+    </nav>
+
+<div class="container addtbl">
+  <table class="table table-bordered">
+<thead class="table-secondary">
+  <tr>
+    <th class="bg-success" scope="col">Rank</th>
+    <th class="bg-success" scope="col">Username  <i class="fas fa-user"></i></th>
+    <th class="bg-success" scope="col">Score</th>
+  </tr>
+</thead>
+
+  {% for user in userPoints %}
+
+<tbody>
+  <tr>
+    <td class="table-warning">{{ user.rank}}</td>
+    <td class="table-warning">{{ user.userName}}</td>
+    <td class="table-warning">{{ user.points}}</td>
+  </tr>
+</tbody>
+
+{% endfor %}
+</table>
+</div>
+
+  </body>
+</html>

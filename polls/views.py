@@ -69,6 +69,34 @@ ON c.id = b.poi_id"""
 
     return render(request ,'allObservations.html', {'points_json':points_json})
 
+### leaderboard
+
+def leaderboard(request, *args, **kwargs):
+
+    connection = psycopg2.connect(database="NewBio",user="postgres", password="mary3000", host='localhost')
+    cursor = connection.cursor()
+    query = """select polls_customuser.username , count(polls_observation.id) * 10 as allObs
+from polls_customuser, polls_observation
+where polls_customuser.id = polls_observation.user_id
+group by polls_customuser.username
+order by allObs desc"""
+    cursor.execute(query)
+    rows=cursor.fetchall()
+    userPoints=[]
+    i = 1
+    for row in rows:
+        upoint = {
+        "rank":i,
+        "userName":row[0],
+        "points":row[1],
+        }
+        userPoints.append(upoint)
+        i += 1
+
+    return render(request, 'leaderboard.html', {'userPoints':userPoints})
+
+
+
 ### getting usernames to validate signup form ###
 def userTest(request):
     usersData=serializers.serialize('json',CustomUser.objects.all())

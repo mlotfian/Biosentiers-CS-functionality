@@ -30,6 +30,14 @@
 .btn-margin-right {
     margin-right: 2px;
 }
+/* .same_lenght{
+  width: 45%;
+}
+@media screen and (min-width: 900px) {
+  .same_lenght{
+    width: 100%;
+  }
+} */
 </style>
 <body>
 
@@ -51,10 +59,13 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 
           <form class="form-inline my-2 my-lg-0" action="/polls/allObs/">
-            <button  class="btn btn-info btn-margin-right btn-margin-left" type="submit">All observations</button>
+            <button  class="same_lenght btn btn-info btn-margin-right btn-margin-left" type="submit">All observations</button>
           </form>
           <form class="form-inline my-2 my-lg-0" action="/polls/myObs/">
-            <button  class="btn btn-info btn-margin-left" type="submit">My observations</button>
+            <button  class="same_lenght btn btn-info btn-margin-left btn-margin-right" type="submit">My observations</button>
+          </form>
+          <form class="form-inline my-2 my-lg-0" action="/polls/leaderboard/">
+            <button  class="same_lenght btn btn-warning btn-margin-left" type="submit">Leaderboard</button>
           </form>
 
           <!-- Login sigin links -->
