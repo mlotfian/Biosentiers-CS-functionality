@@ -48,6 +48,12 @@
 
     color: white;
 }
+td,th{
+   text-align: center;
+}
+/* .table th{
+   text-align: center;
+} */
     body, html {
         background: url('/static/images/Berberis_vulgaris_PP_01.JPG') no-repeat center center fixed;
       -webkit-background-size: cover;
@@ -90,7 +96,7 @@
 
 <tbody>
   <tr>
-    <td class="table-warning">{{ user.rank}}</td>
+    <td class="table-warning"><b>{{ user.rank}}</b></td>
     <td class="table-warning">{{ user.userName}}</td>
     <td class="table-warning">{{ user.points}}</td>
   </tr>
