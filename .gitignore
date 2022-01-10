@@ -1,0 +1,9 @@
+# ignore all the csv, tif, whl, and pkl files files
+
+*.json
+*.sqlite3
+
+# ignore the folders
+
+media/*
+node_modules/*

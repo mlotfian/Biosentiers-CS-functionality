@@ -1,7 +1,13 @@
 
-body #map {
-    height: 91%;
+body {
+    height: 100%;
     width: 100%;
+	z-index: -1;
+}
+.coverMap {
+  background: url('/static/images/map2.png') center center;
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 .addButton{
   position: absolute;

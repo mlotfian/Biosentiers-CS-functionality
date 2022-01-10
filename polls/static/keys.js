@@ -1,1 +1,1 @@
-var myApiKey = '366cc97df9c14f50b0ec95e98724b3e8';
+var myApiKey = 'bc8626e8f25c46c0967e00151b90e8ea';

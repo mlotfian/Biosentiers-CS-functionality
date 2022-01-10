@@ -1,8 +1,10 @@
 {% load leaflet_tags %}
 <html>
   <head>
+
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta charset="utf-8" />
+
 
   {% load staticfiles %}
   {% load static %}
@@ -25,8 +27,9 @@
   <!-- bootstrap 4 -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
   integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
-  integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
 
 
   <!-- fontawesome -->
@@ -38,7 +41,7 @@
     <!-- <link href="//cdn.bootcss.com/bootstrap-datetimepicker/4.17.44/css/bootstrap-datetimepicker.min.css" rel="stylesheet"> -->
 
     <!-- leaflet -->
-    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7/leaflet.css" />
+    <!-- <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7/leaflet.css" /> -->
 
     <!--Autocomplete-->
     <link rel="stylesheet" href="https://cdn.rawgit.com/LeaVerou/awesomplete/gh-pages/awesomplete.css" />
@@ -57,13 +60,13 @@
 
 
     <!-- date -->
-    <link rel="stylesheet" href="http://cdn.kendostatic.com/2014.3.1411/styles/kendo.common.min.css" />
-<link rel="stylesheet" href="http://cdn.kendostatic.com/2014.3.1411/styles/kendo.default.min.css" />
-<link rel="stylesheet" href="http://cdn.kendostatic.com/2014.3.1411/styles/kendo.dataviz.min.css" />
-<link rel="stylesheet" href="http://cdn.kendostatic.com/2014.3.1411/styles/kendo.dataviz.default.min.css" />
+    <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2019.1.220/styles/kendo.common.min.css"/>
+        <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2019.1.220/styles/kendo.rtl.min.css"/>
+        <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2019.1.220/styles/kendo.silver.min.css"/>
+        <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2019.1.220/styles/kendo.mobile.all.min.css"/>
 
-<script src="http://cdn.kendostatic.com/2014.3.1411/js/jquery.min.js"></script>
-<script src="http://cdn.kendostatic.com/2014.3.1411/js/kendo.all.min.js"></script>
+        <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+        <script src="https://kendo.cdn.telerik.com/2019.1.220/js/kendo.all.min.js"></script>
 
 <!-- select2 -->
 <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
@@ -92,10 +95,11 @@
         if(filename.value == '') {
           alert('Please browse for a file!');
           return;
-        } else if (!validFile(filename.value)) {
-          alert('Supported File Types: JPEG, PNG, TIFF, BMP');
-          return;
         }
+        // else if (!validFile(filename.value)) {
+        //   alert('Supported File Types: JPEG, PNG, TIFF, BMP');
+        //   return;
+        // }
         predict_click($('#filename').val(), 'file');
       };
     }
@@ -137,7 +141,7 @@
           <textarea id="id_geometry" class="required" cols="150" rows="10" name="geometry"></textarea>
         </div>
 
-        <div class="container-fluid blackBar">
+        <div class="container-fluid" id="blackBar">
           <div id="div1">
 
             <div class="tab InsertPoint">
@@ -157,12 +161,48 @@
               </select>
             </div>
 
-              <div class="tab">
-                <input id="species" class="species_form form-control" name="name" placeholder="Enter species name">
-              </div>
+            <div class="tab" id="all_names">
+
+          <div class="sp_name1">
+            <input id="species" class="form-control" placeholder="Enter species name">
+          </div>
+
+        <div class="sp_name2" id="sp_bird">
+          <table>
+            <tr>
+              <td>
+                <label class="btn btn-light" id="label1">
+                  <input type="radio" value="radio1" name="radios" id="option1" autocomplete="off"> I do not know the species name
+                </label>
+                <input id="op1" type="hidden" value="unknown">
+              </td>
+            </tr>
+
+            <tr>
+              <td>
+                <label class="btn btn-light" id="label2">
+                  <input type="radio" value="radio2" name="radios" id="option2" autocomplete="off"> I am not sure, give me suggestions
+                </label>
+                <div class="card bg-light" id="second">
+                </div>
+              </td>
+            </tr>
+
+            <tr>
+              <td>
+                <label class="btn btn-light" id="label3">
+                  <input type="radio" value="radio3" name="radios" id="option3" autocomplete="off"> The species name is...
+                </label>
+                <input type="text" id="third", class="form-control" placeholder="Enter species name">
+                <input type="hidden" value="false" id="FlagLocation" class="observation_form" name="FlagLocation">
+              </td>
+            </tr>
+          </table>
+        </div>
+        </div>
 
               <div class="tab">
-                <input class="observation_form form-control" name="description" placeholder="Enter your description">
+                <input class="observation_form form-control" name="description" value="Enter your description">
               </div>
 
               <div id="obsTime" class="tab">
@@ -172,6 +212,7 @@
 
               <div class="tab">
                 <input id="filename" type="file" class="btnImage observation_form" name="photo"/>
+                <!-- <label for="filename">Choose Photo</label> -->
                 <input type="hidden" value="false" id="Flagimage" class="observation_form" name="Flagimage">
               </div>
 
@@ -180,8 +221,8 @@
             <!-- adding Next / Previous / submit buttons -->
             <div id="div2">
               <div id="change" class="next"><button class="btn btn-success" id="submitButton" type="submit" disabled>Send <i class="far fa-paper-plane fa-sm"></i></button></div>
-              <div id="change" class="next"><button class="btn btn-success" type="button" id="nextBtn" onclick="nextPrev(1)" disabled>Next <i class="fas fa-arrow-alt-circle-right fa-lg"></i></button></div>
-              <div class="prev"><button type="button" class="btn btn-secondary" id="prevBtn" onclick="nextPrev(-1)">Back <i class="fas fa-arrow-alt-circle-left fa-lg"></i></button></div>
+              <div id="change1" class="next"><button class="btn btn-success" type="button" id="nextBtn" onclick="nextPrev(1)" disabled>Next <i class="fas fa-arrow-alt-circle-right fa-lg"></i></button></div>
+              <div id="prev" class="prev"><button type="button" class="btn btn-secondary" id="prevBtn" onclick="nextPrev(-1)">Back <i class="fas fa-arrow-alt-circle-left fa-lg"></i></button></div>
             </div>
 
         </div>
@@ -190,8 +231,8 @@
     <div>
       <span class="step"></span>
       <span class="step"></span>
-      <span class="step"></span>
-      <span class="step"></span>
+      <span id="birdSt" class="step checkAPI"></span>
+      <span id="nameSt" class="step"></span>
       <span class="step"></span>
       <span class="step"></span>
     </div>
@@ -199,148 +240,7 @@
 </form>
 </div>
 
-<script type="text/javascript">
-const selectElement = document.querySelector('.leaflet-container-default');
-selectElement.addEventListener('click', (event) => {
-document.getElementById("nextBtn").disabled = false;
-});
-</script>
-
-<!-- <script>
-  function enableNextButton() {
-    document.getElementById("nextBtn").disabled = false;
-  }
-</script> -->
-
-<script type="text/javascript">
-$(document).ready(function() {
-  $('.selectpicker').select2({ width: '180px' });
-});
-</script>
-<script type="text/javascript">
-
-$(document).ready(function() {
-
-                // create DatePicker from input HTML element
-                $("#datepicker").kendoDatePicker({
-                  popup: {
-                      position: "bottom left",
-                      origin: "top left"
-                  }
-                });
-
-  });
-</script>
-
-
- <!--  Autocomplete name, from BioSentiers db -->
-<script type="text/javascript">
-    var speciesNameInput = document.getElementById("species");
-
-    var awesomplete = new Awesomplete(speciesNameInput, {
-      minChars: 1,
-      autoFirst: true
-    });
-
-    $("#observation_type").on("change", function() {
-      var selectedObsType = $("#observation_type :selected").text().split(' ')[0].toLowerCase();
-      $.ajax({
-        url: 'https://biosentiers.heig-vd.ch/api/species?only=commonName.fr&theme=' + selectedObsType,
-        type: 'GET',
-        dataType: 'json'
-      })
-      .success(function(data) {
-        var list = [];
-        $.each(data, function(key, value) {
-          list.push(value.commonName.fr);
-        });
-        awesomplete.list = list;
-      });
-    });
-</script>
-
-<script>
-var currentTab = 0; // Current tab is set to be the first tab (0)
-showTab(currentTab); // Display the current tab
-
-function showTab(n) {
-  // This function will display the specified tab of the form...
-  var x = document.getElementsByClassName("tab");
-  x[n].style.display = "block";
-  //... and fix the Previous/Next buttons:
-  if (n == 0) {
-    document.getElementById("prevBtn").style.display = "none";
-    document.getElementById("submitButton").style.display = "none";
-  }
-  else if (n == (x.length -1)) {
-    document.getElementById("nextBtn").style.display = "none";
-    document.getElementById("submitButton").style.display = "inline";
-    document.getElementById("prevBtn").style.display = "inline";
-  }
-  else {
-    document.getElementById("submitButton").style.display = "none";
-    document.getElementById("prevBtn").style.display = "inline";
-    document.getElementById("nextBtn").style.display = "inline";
-  }
-  //... and run a function that will display the correct step indicator:
-  fixStepIndicator(n)
-}
-
-function nextPrev(n) {
-  // This function will figure out which tab to display
-  var x = document.getElementsByClassName("tab");
-  // Exit the function if any field in the current tab is invalid:
-  if (n == 1 && !validateForm()) return false;
-  // Hide the current tab:
-  x[currentTab].style.display = "none";
-  // Increase or decrease the current tab by 1:
-  currentTab = currentTab + n;
-  // if you have reached the end of the form...
-  if (currentTab >= x.length) {
-    // ... the form gets submitted:
-    document.getElementById("regForm").submit();
-    return false;
-  }
-  // Otherwise, display the correct tab:
-  showTab(currentTab);
-}
-
-// select tag validation
-
-
-function validateForm() {
-  // This function deals with validation of the form fields
-  var x, y, i, valid = true;
-  x = document.getElementsByClassName("tab");
-  y = x[currentTab].querySelectorAll("select, input");
-  // A loop that checks every input field in the current tab:
-  for (i = 0; i < y.length; i++) {
-    // If a field is empty...
-    if (y[i].value == "" || y[i].value == "mm/dd/yyyy") {
-      // add an "invalid" class to the field:
-      y[i].className += " invalid";
-      // and set the current valid status to false
-      valid = false;
-    }
-  }
-  // If the valid status is true, mark the step as finished and valid:
-  if (valid) {
-    document.getElementsByClassName("step")[currentTab].className += " finish";
-  }
-  return valid; // return the valid status
-}
-
-
-function fixStepIndicator(n) {
-  // This function removes the "active" class of all steps...
-  var i, x = document.getElementsByClassName("step");
-  for (i = 0; i < x.length; i++) {
-    x[i].className = x[i].className.replace(" active", "");
-  }
-  //... and adds the "active" class on the current step:
-  x[n].className += " active";
-}
-</script>
+<script src="{% static 'addObs.js' %}" type="text/javascript"></script>
 
 
   </body>

@@ -25,7 +25,7 @@ SECRET_KEY = 'uf3c+s)j4tot4zo)wwkl90njxw4rwwlye_u!-!e-zia#=8s*)w'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -85,9 +85,9 @@ WSGI_APPLICATION = 'SpeciesColl.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.contrib.gis.db.backends.postgis',
-        'NAME': 'NewBio',
+        'NAME': 'BioSen',
         'USER': 'postgres',
-        'PASSWORD': 'mary3000',
+        'PASSWORD': 'feri13689',
         'HOST': 'localhost',
         'PORT': '5432',
     }
@@ -146,10 +146,11 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 MEDIA_URL = '/media/'
 
-GDAL_LIBRARY_PATH = r'C:\OSGeo4W\bin\gdal202.dll'
-GDAL_DATA_PATH = r'C:\OSGeo4W\share\gdal\gcs.csv'
+GDAL_LIBRARY_PATH = r'C:\Users\insitadmin\AppData\Local\Programs\Python\Python37-32\Lib\site-packages\osgeo\gdal300.dll'
+#GDAL_DATA_PATH = r'C:\OSGeo4W\share\gdal\gcs.csv'
 #GDAL_DRIVER_PATH = r'C:\OSGeo4W\bin\gdalplugins'
-#GEOS_LIBRARY_PATH = r'C:\Program Files\PostgreSQL\10\bin\libgeos.dll'
+GEOS_LIBRARY_PATH = r'C:\Users\insitadmin\AppData\Local\Programs\Python\Python37-32\Lib\site-packages\osgeo\geos_c.dll'
+
 
 # redirect after logging to homeage
 LOGIN_REDIRECT_URL = 'index'

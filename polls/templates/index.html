@@ -11,15 +11,25 @@
     <meta charset="utf-8" />
 
 
-    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7/leaflet.css" />
+    <!--<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7/leaflet.css" />-->
     <link rel="stylesheet" href="{% static 'index.css' %}">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
     integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <script
+    <!--<script
         src="http://cdn.leafletjs.com/leaflet-0.7/leaflet.js">
 
     </script>
-  <!--  <script type="text/javascript" src="/static/js/index.js"></script>-->
+    <script type="text/javascript" src="/static/js/index.js"></script>-->
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-E24N60ZWFZ"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-E24N60ZWFZ');
+    </script>
 
 </head>
 <style>
@@ -35,7 +45,7 @@
 }
 
 </style>
-<body>
+<body class="coverMap">
 
   <!-- adding navbar -->
 
@@ -100,7 +110,7 @@
         </div>
   </nav>
 
-<div id="map"></div>
+<!-- <div id="map"></div> -->
 <div class="addButton">
 
   <form id="loginForm" method="get" action="/polls/observe/">
@@ -110,38 +120,17 @@
 
 </div>
 
-<script type="text/javascript">
-let test = document.getElementById("loginFirst");
-let logForm = document.getElementById("loginForm");
 
-{% if user.is_authenticated %}
 
-    console.log("already logged in");
-
-{% else %}
-
-  logForm.action = "";
-  test.addEventListener("mouseenter", function( event ) {
-// highlight the mouseenter target
-  event.target.innerHTML = "Please login first";
-  setTimeout(function() {
-      event.target.innerHTML = "Add observation";
-    }, 1000);
-  },false);
-
-{% endif %}
-
-</script>
-
-<script type="text/javascript">
+<!-- <script type="text/javascript">
 
 // var map = L.map('map').setView([46.7833, 6.65], 14);
 //         //var marker = L.marker([46.7833, 6.65]).addTo(map);
 
-navigator.geolocation.getCurrentPosition(function(location) {
-  var latlng = new L.LatLng(location.coords.latitude, location.coords.longitude);
+//navigator.geolocation.getCurrentPosition(function(location) {
+  //var latlng = new L.LatLng(location.coords.latitude, location.coords.longitude);
 
-  var mymap = L.map('map').setView(latlng, 14)
+  var mymap = L.map('map').setView([46.7833, 6.65], 14)
   mapLink =
         '<a href="http://openstreetmap.org">OpenStreetMap</a>';
     L.tileLayer(
@@ -150,7 +139,7 @@ navigator.geolocation.getCurrentPosition(function(location) {
          maxZoom: 22,
       }).addTo(mymap);
     //var marker = L.marker(latlng).addTo(mymap);
-});
+
 
   // L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
   //   attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://mapbox.com">Mapbox</a>',
@@ -162,7 +151,7 @@ navigator.geolocation.getCurrentPosition(function(location) {
   // var marker = L.marker(latlng).addTo(mymap);
 
 
-</script>
+</script> -->
 
 
 

@@ -35,11 +35,12 @@ class Observation(models.Model):
     species = models.ForeignKey(Species, on_delete=models.CASCADE, verbose_name="Species",)
     poi = models.ForeignKey(POI, on_delete=models.CASCADE, verbose_name="POI",)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE,)
-    description = models.CharField(max_length=255, default='SOME STRING',)
+    description = models.CharField(max_length=255, default='SOME STRING',blank=True,)
     date = models.DateField(verbose_name="Date", default=datetime.date.today)
     photo = models.ImageField(upload_to='media', default='no image')
     Flagtime = models.BooleanField(default=False)
     Flagimage = models.BooleanField(default=False)
+    FlagLocation = models.BooleanField(default=False)
 
 
 

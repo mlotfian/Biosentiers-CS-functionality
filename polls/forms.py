@@ -17,7 +17,7 @@ class ObservationForm(ModelForm):
 
     class Meta:
         model = Observation
-        fields = ['description','date', 'photo', 'Flagtime', 'Flagimage']
+        fields = ['description','date', 'photo', 'Flagtime', 'Flagimage', 'FlagLocation']
 
        # widgets = {'date': forms.DateTimeInput(attrs={'class': 'datetime-input'})}
 

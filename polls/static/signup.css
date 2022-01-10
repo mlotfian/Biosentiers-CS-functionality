@@ -1,9 +1,9 @@
 body, html {
-    background: url('/static/images/Berberis_vulgaris_PP_01.JPG') no-repeat center center fixed;
+    background: url('/static/images/Barbarea_vulgaris_JDuvoisin_2.jpg');
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
-  background-size: cover;;
+  background-size: cover;
     /* background-image: linear-gradient(rgb(104, 145, 162), rgb(12, 97, 33)); */
 
 }

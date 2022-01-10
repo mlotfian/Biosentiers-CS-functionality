@@ -44,7 +44,7 @@
     <div class="form-group">
       <div class="input-group">
         <span class="input-group-addon"><i class="fa fa-lock"></i></span>
-        <input type="password" id="id_password1" class="form-control form_class" name="password1" placeholder="Password" required="required">
+        <input type="password" pattern="(?=.*[a-z]).{8,}" title=" 1)Your password can't be entirely numeric. 2)Your password must contain at least one lower case and at least 8 characters 3)Your password can't be a commonly used password. 4)Your password can't be too similar to your other personal information" id="id_password1" class="form-control form_class" name="password1" placeholder="Password" required="required">
       </div>
 
         </div>

@@ -27,6 +27,8 @@ from django.http import JsonResponse
 from django.core import serializers
 from django.core.serializers import serialize
 
+from django.contrib.auth.decorators import login_required
+
 
 # for wizard
 from formtools.wizard.views import SessionWizardView
@@ -37,7 +39,7 @@ from formtools.wizard.views import SessionWizardView
 
 def all_obs(request, *args, **kwargs):
 
-    connection = psycopg2.connect(database="NewBio",user="postgres", password="mary3000", host='localhost')
+    connection = psycopg2.connect(database="BioSen",user="postgres", password="feri13689", host='localhost')
     cursor = connection.cursor()
     query = """SELECT a.obs_type, a.name, b.photo, b.description, b.date, st_AsGeoJSON(c.geometry)
 FROM polls_species a
@@ -73,7 +75,7 @@ ON c.id = b.poi_id"""
 
 def leaderboard(request, *args, **kwargs):
 
-    connection = psycopg2.connect(database="NewBio",user="postgres", password="mary3000", host='localhost')
+    connection = psycopg2.connect(database="BioSen",user="postgres", password="feri13689", host='localhost')
     cursor = connection.cursor()
     query = """select polls_customuser.username , count(polls_observation.id) * 10 as allObs
 from polls_customuser, polls_observation
@@ -153,6 +155,7 @@ def detail(request):
 
 
 ##########test###################
+@login_required(login_url='/polls/login/')
 def observe(request):
     context = {
     'observation_form': ObservationForm(),

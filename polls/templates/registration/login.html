@@ -28,8 +28,16 @@
                     <!-- {{ form.as_p }} -->
                     <input type="text" name="username" id="id_username" class="form-control form_class" placeholder="Username" required autofocus>
                     <input type="password" name="password" required id="id_password" class="form-control form_class" placeholder="Password" required>
+					{% if form.errors %}
+                    <div class="alert alert-danger" role="alert">
+                        Please enter a correct username and password.<br>
+                        Note that both fields may be case-sensitive.
+                    </div>
+                    {% endif %}
                     <!-- <input type="password" id="inputPassword" class="form-control" placeholder="Password" required> -->
                     <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Login</button>
+					
+					<p>Do not have an account? signup <a href="{% url 'polls:signup' %}">here</a></p>
                   </div>
                 </form><!-- /form -->
 
