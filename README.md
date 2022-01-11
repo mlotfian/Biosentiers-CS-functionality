@@ -14,6 +14,9 @@ BioSenCS is a biodiversity CS project that we developed with the following objec
 
 * Improve data quality as a result of automatic feedback
 
+![Alt Text](https://github.com/mlotfian/Biosentiers-CS-functionality/blob/master/biosen.gif)
+
+
 ### Requirements:
 
 ```
